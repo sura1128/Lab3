@@ -1,12 +1,12 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <report-views version="2.0" >
  <header>
-  <DateModified>2014-10-25T17:29:30</DateModified>
+  <DateModified>2014-10-25T17:35:44</DateModified>
   <ModuleName>RegFile</ModuleName>
-  <SummaryTimeStamp>2014-10-25T17:07:46</SummaryTimeStamp>
-  <SavedFilePath>F:/Documents/School/NUS/Lab3/iseconfig/TOP.xreport</SavedFilePath>
-  <ImplementationReportsDirectory>F:/Documents/School/NUS/Lab3\</ImplementationReportsDirectory>
-  <DateInitialized>2014-10-25T17:29:30</DateInitialized>
+  <SummaryTimeStamp>Unknown</SummaryTimeStamp>
+  <SavedFilePath>F:/Documents/School/NUS/Lab3/iseconfig/RegFile.xreport</SavedFilePath>
+  <ImplementationReportsDirectory>F:/Documents/School/NUS/Lab3</ImplementationReportsDirectory>
+  <DateInitialized>2014-10-25T17:35:31</DateInitialized>
   <EnableMessageFiltering>false</EnableMessageFiltering>
  </header>
  <body>

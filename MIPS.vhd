@@ -207,6 +207,9 @@ RegFile1			: RegFile port map
 -- Processor logic
 ----------------------------------------------------------------
 --<Rest of the logic goes here>
+opcode <= Instr(31 downto 26);
+
+
 
 end arch_MIPS;
 

@@ -33,9 +33,27 @@ end RegFile;
 
 
 architecture arch_RegFile of RegFile is
+
+type MEM_32x32 is array (0 to 31) of std_logic_vector (31 downto 0); -- 32 registers
+
+-- Register File
+signal REG_FILE : MEM_32x32 := (others=> x"00000000");
+
 begin
 
 --<Implement register file here >
+--asynchronous so can read in the first half of the clock cycle
+ReadData1_Reg <= REG_FILE(conv_integer(ReadAddr1_Reg));
+ReadData2_Reg <= REG_FILE(conv_integer(ReadAddr2_Reg));
+
+process (CLK)
+begin
+if (CLK'event and CLK='1') then
+	if (RegWrite = '1') then
+		REG_FILE(conv_integer(WriteAddr_Reg)) <= WriteData_Reg;
+	end if;
+end if;
+end process;
 
 end arch_RegFile;
 
