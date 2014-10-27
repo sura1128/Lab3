@@ -22,6 +22,17 @@
   <sourceproject xmlns="http://www.xilinx.com/XMLSchema" xil_pn:fileType="FILE_XISE" xil_pn:name="Lab3.xise"/>
 
   <files xmlns="http://www.xilinx.com/XMLSchema">
+    <file xil_pn:fileType="FILE_CMD_LOG" xil_pn:name="ControlUnit.cmd_log"/>
+    <file xil_pn:branch="Implementation" xil_pn:fileType="FILE_LSO" xil_pn:name="ControlUnit.lso"/>
+    <file xil_pn:branch="Implementation" xil_pn:fileType="FILE_NGC" xil_pn:name="ControlUnit.ngc"/>
+    <file xil_pn:branch="Implementation" xil_pn:fileType="FILE_NGR" xil_pn:name="ControlUnit.ngr"/>
+    <file xil_pn:branch="Implementation" xil_pn:fileType="FILE_XST_PROJECT" xil_pn:name="ControlUnit.prj"/>
+    <file xil_pn:branch="Implementation" xil_pn:fileType="FILE_XST_STX" xil_pn:name="ControlUnit.stx"/>
+    <file xil_pn:branch="Implementation" xil_pn:fileType="FILE_XST_REPORT" xil_pn:name="ControlUnit.syr"/>
+    <file xil_pn:branch="Implementation" xil_pn:fileType="FILE_XST" xil_pn:name="ControlUnit.xst"/>
+    <file xil_pn:fileType="FILE_HTML" xil_pn:name="ControlUnit_envsettings.html"/>
+    <file xil_pn:fileType="FILE_HTML" xil_pn:name="ControlUnit_summary.html"/>
+    <file xil_pn:fileType="FILE_XRPT" xil_pn:name="ControlUnit_xst.xrpt"/>
     <file xil_pn:fileType="FILE_CMD_LOG" xil_pn:name="MIPS.cmd_log"/>
     <file xil_pn:branch="Implementation" xil_pn:fileType="FILE_LSO" xil_pn:name="MIPS.lso"/>
     <file xil_pn:branch="Implementation" xil_pn:fileType="FILE_NGC" xil_pn:name="MIPS.ngc"/>
@@ -41,42 +52,41 @@
       <status xil_pn:value="SuccessfullyRun"/>
       <status xil_pn:value="ReadyToRun"/>
     </transform>
-    <transform xil_pn:end_ts="1414409098" xil_pn:name="TRAN_schematicsToHdl" xil_pn:prop_ck="7369809795653047347" xil_pn:start_ts="1414409098">
+    <transform xil_pn:end_ts="1414414725" xil_pn:name="TRAN_schematicsToHdl" xil_pn:prop_ck="-440387730945107709" xil_pn:start_ts="1414414725">
       <status xil_pn:value="SuccessfullyRun"/>
       <status xil_pn:value="ReadyToRun"/>
     </transform>
-    <transform xil_pn:end_ts="1414409098" xil_pn:name="TRAN_regenerateCores" xil_pn:prop_ck="-4993137221777327623" xil_pn:start_ts="1414409098">
+    <transform xil_pn:end_ts="1414414725" xil_pn:name="TRAN_regenerateCores" xil_pn:prop_ck="-369629144584280567" xil_pn:start_ts="1414414725">
       <status xil_pn:value="SuccessfullyRun"/>
       <status xil_pn:value="ReadyToRun"/>
     </transform>
-    <transform xil_pn:end_ts="1414409098" xil_pn:name="TRAN_SubProjectAbstractToPreProxy" xil_pn:start_ts="1414409098">
+    <transform xil_pn:end_ts="1414414725" xil_pn:name="TRAN_SubProjectAbstractToPreProxy" xil_pn:start_ts="1414414725">
       <status xil_pn:value="SuccessfullyRun"/>
       <status xil_pn:value="ReadyToRun"/>
     </transform>
-    <transform xil_pn:end_ts="1414409098" xil_pn:name="TRAN_xawsTohdl" xil_pn:prop_ck="5761740693710530709" xil_pn:start_ts="1414409098">
+    <transform xil_pn:end_ts="1414414725" xil_pn:name="TRAN_xawsTohdl" xil_pn:prop_ck="-7940634773647658779" xil_pn:start_ts="1414414725">
       <status xil_pn:value="SuccessfullyRun"/>
       <status xil_pn:value="ReadyToRun"/>
     </transform>
-    <transform xil_pn:end_ts="1414409098" xil_pn:name="TRAN_SubProjectPreToStructuralProxy" xil_pn:prop_ck="3206529612922900429" xil_pn:start_ts="1414409098">
+    <transform xil_pn:end_ts="1414414725" xil_pn:name="TRAN_SubProjectPreToStructuralProxy" xil_pn:prop_ck="3206529612922900429" xil_pn:start_ts="1414414725">
       <status xil_pn:value="SuccessfullyRun"/>
       <status xil_pn:value="ReadyToRun"/>
     </transform>
-    <transform xil_pn:end_ts="1414409098" xil_pn:name="TRAN_platgen" xil_pn:prop_ck="4231066021435295683" xil_pn:start_ts="1414409098">
+    <transform xil_pn:end_ts="1414414725" xil_pn:name="TRAN_platgen" xil_pn:prop_ck="-3981088436732998317" xil_pn:start_ts="1414414725">
       <status xil_pn:value="SuccessfullyRun"/>
       <status xil_pn:value="ReadyToRun"/>
     </transform>
-    <transform xil_pn:end_ts="1414409267" xil_pn:in_ck="8655575575007038953" xil_pn:name="TRANEXT_xstsynthesize_virtex6" xil_pn:prop_ck="4484949452818678784" xil_pn:start_ts="1414409251">
+    <transform xil_pn:end_ts="1414415277" xil_pn:in_ck="8655575575007038953" xil_pn:name="TRANEXT_xstsynthesize_virtex6" xil_pn:prop_ck="2212829127193375120" xil_pn:start_ts="1414415264">
       <status xil_pn:value="SuccessfullyRun"/>
-      <status xil_pn:value="WarningsGenerated"/>
       <status xil_pn:value="ReadyToRun"/>
-      <outfile xil_pn:name="MIPS.lso"/>
-      <outfile xil_pn:name="MIPS.ngc"/>
-      <outfile xil_pn:name="MIPS.ngr"/>
-      <outfile xil_pn:name="MIPS.prj"/>
-      <outfile xil_pn:name="MIPS.stx"/>
-      <outfile xil_pn:name="MIPS.syr"/>
-      <outfile xil_pn:name="MIPS.xst"/>
-      <outfile xil_pn:name="MIPS_xst.xrpt"/>
+      <outfile xil_pn:name="ControlUnit.lso"/>
+      <outfile xil_pn:name="ControlUnit.ngc"/>
+      <outfile xil_pn:name="ControlUnit.ngr"/>
+      <outfile xil_pn:name="ControlUnit.prj"/>
+      <outfile xil_pn:name="ControlUnit.stx"/>
+      <outfile xil_pn:name="ControlUnit.syr"/>
+      <outfile xil_pn:name="ControlUnit.xst"/>
+      <outfile xil_pn:name="ControlUnit_xst.xrpt"/>
       <outfile xil_pn:name="_xmsgs/xst.xmsgs"/>
       <outfile xil_pn:name="webtalk_pn.xml"/>
       <outfile xil_pn:name="xst"/>

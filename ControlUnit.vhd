@@ -42,11 +42,13 @@ begin
 process (opcode)
 begin
 
-
-
 case opcode(5 downto 4) is
+
 when "10" => -- I-type
-	ALUOp <= '00';
+
+	if opcode(3 downto 0) = "0011" then -- lw
+	
+	ALUOp <= "00";
 	Branch <= '0';
 	Jump <= '0';
 	MemRead <= '1';
@@ -54,17 +56,27 @@ when "10" => -- I-type
 	InstrtoReg <= '0';
 	MemWrite <= '0';
 	ALUSrc <= '1';
-	SignExtend <= '0';
+	SignExtend <= '1';
 	RegWrite <= '1';
 	RegDst <= '0';
-
-
-when "00" => -- R-type or J-type
 	
-	if opcode(3 downto 0) = '0100' then --BEQ
-		--<output>
-		ALUOp <= '01';
-		Branch <= '1';
+	elsif opcode(3 downto 0) = "1011" then --sw
+	
+	ALUOp <= "00";
+	Branch <= '0';
+	Jump <= '0';
+	MemRead <= '0';
+	MemtoReg <= '0';
+	InstrtoReg <= '0';
+	MemWrite <= '1';
+	ALUSrc <= '1';
+	SignExtend <= '1';
+	RegWrite <= '0';
+	RegDst <= '0';
+	
+	else
+		ALUOp <= "00";
+		Branch <= '0';
 		Jump <= '0';
 		MemRead <= '0';
 		MemtoReg <= '0';
@@ -74,11 +86,28 @@ when "00" => -- R-type or J-type
 		SignExtend <= '0';
 		RegWrite <= '0';
 		RegDst <= '0';
-
-
-	elsif opcode(3 downto 0) = '0010' then --J
+	end if;
+	
+when "00" => 
+	
+	if opcode(3 downto 0) = "0100" then --BEQ
 		--<output>
-		ALUOp <= '01';
+		ALUOp <= "01";
+		Branch <= '1';
+		Jump <= '0';
+		MemRead <= '0';
+		MemtoReg <= '0';
+		InstrtoReg <= '0';
+		MemWrite <= '0';
+		ALUSrc <= '0';
+		SignExtend <= '1';
+		RegWrite <= '0';
+		RegDst <= '0';
+
+
+	elsif opcode(3 downto 0) = "0010" then --J
+		--<output>
+		ALUOp <= "01";
 		Branch <= '0';
 		Jump <= '1';
 		MemRead <= '0';
@@ -91,7 +120,7 @@ when "00" => -- R-type or J-type
 		RegDst <= '0';
 
 	else --R-type
-		ALUOp <= '10';
+		ALUOp <= "10";
 		Branch <= '0';
 		Jump <= '0';
 		MemRead <= '0';
@@ -103,9 +132,19 @@ when "00" => -- R-type or J-type
 		RegWrite <= '1';
 		RegDst <= '1';
 
-	end if
-		
-
+	end if;
+when others =>
+	ALUOp <= "00";
+		Branch <= '0';
+		Jump <= '0';
+		MemRead <= '0';
+		MemtoReg <= '0';
+		InstrtoReg <= '0';
+		MemWrite <= '0';
+		ALUSrc <= '0';
+		SignExtend <= '0';
+		RegWrite <= '0';
+		RegDst <= '0';
 end case;
 
 end process;
