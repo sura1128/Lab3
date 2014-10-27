@@ -101,8 +101,7 @@ when "00" => -- R-type or J-type
 		RegDst <= '1';
 
 	end if
-
-
+		--<ORI to be added>
 
 
 end case;
