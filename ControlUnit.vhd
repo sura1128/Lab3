@@ -35,8 +35,8 @@ entity ControlUnit is
 end ControlUnit;
 
 
---architecture arch_ControlUnit of ControlUnit is  
---begin   
+architecture arch_ControlUnit of ControlUnit is  
+begin   
 --
 --<implement control unit here>
 --
@@ -106,4 +106,4 @@ end ControlUnit;
 --
 --end case;
 --
---end arch_ControlUnit;
+end arch_ControlUnit;
