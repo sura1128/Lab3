@@ -39,7 +39,72 @@ architecture arch_ControlUnit of ControlUnit is
 begin   
 
 --<implement control unit here>
---hello world
+
+
+case opcode(5 downto 4) is
+when "10" => -- I-type
+	ALUOp <= '00';
+	Branch <= '0';
+	Jump <= '0';
+	MemRead <= '1';
+	MemtoReg <= '1';
+	InstrtoReg <= '0';
+	MemWrite <= '0';
+	ALUSrc <= '1';
+	SignExtend <= '0';
+	RegWrite <= '1';
+	RegDst <= '0';
+
+
+when "00" => -- R-type or J-type
+	
+	if opcode(3 downto 0) = '0100' then --BEQ
+		--<output>
+		ALUOp <= '01';
+		Branch <= '1';
+		Jump <= '';
+		MemRead <= '0';
+		MemtoReg <= '';
+		InstrtoReg <= '';
+		MemWrite <= '';
+		ALUSrc <= '0';
+		SignExtend <= '';
+		RegWrite <= '';
+		RegDst <= '';
+
+
+	elsif opcode(3 downto 0) = '0010' then --J
+		--<output>
+		ALUOp <= '01';
+		Branch <= '';
+		Jump <= '';
+		MemRead <= '';
+		MemtoReg <= '';
+		InstrtoReg <= '';
+		MemWrite <= '';
+		ALUSrc <= '';
+		SignExtend <= '';
+		RegWrite <= '';
+		RegDst <= '';
+
+	else --R-type
+		ALUOp <= '10';
+		Branch <= '0';
+		Jump <= '0';
+		MemRead <= '';
+		MemtoReg <= '';
+		InstrtoReg <= '';
+		MemWrite <= '';
+		ALUSrc <= '0';
+		SignExtend <= '';
+		RegWrite <= '1';
+		RegDst <= '1';
+
+	end if
+
+
+
+
+end case;
 
 end arch_ControlUnit;
-
