@@ -237,7 +237,7 @@ SignExtend1    : SignExtention port map
 --<Rest of the logic goes here>
 
 
-combinational: process (Instr, Data_In)
+combinational: process (Instr, Data_In, AluOp, ReadData1_Reg, AluSrc, SignExtend_Out, ReadData2_Reg, Alu_Out, RegDst, MemtoReg)
 
 begin
 --/fetch--

@@ -1,0 +1,5 @@
+vhdl work "SignExtend.vhd"
+vhdl work "RegFile.vhd"
+vhdl work "PC.vhd"
+vhdl work "ALU.vhd"
+vhdl work "MIPS.vhd"
