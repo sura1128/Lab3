@@ -118,6 +118,32 @@ when "00" =>
 		SignExtend <= '0';
 		RegWrite <= '0';
 		RegDst <= '0';
+	
+	elsif opcode(3 downto 0) = "1101" then --ori
+		ALUOp <= "11";
+		Branch <= '0';
+		Jump <= '0';
+		MemRead <= '0';
+		MemtoReg <= '0';
+		InstrtoReg <= '0';
+		MemWrite <= '0';
+		ALUSrc <= '1';
+		SignExtend <= '0';
+		RegWrite <= '1';
+		RegDst <= '0';
+		
+	elsif opcode(3 downto 0) = "1111" then --lui
+		ALUOp <= "00";
+		Branch <= '0';
+		Jump <= '0';
+		MemRead <= '0';
+		MemtoReg <= '0';
+		InstrtoReg <= '1';
+		MemWrite <= '0';
+		ALUSrc <= '0';
+		SignExtend <= '0';
+		RegWrite <= '1';
+		RegDst <= '0';
 
 	else --R-type
 		ALUOp <= "10";

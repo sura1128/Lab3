@@ -46,7 +46,8 @@ if (Enable = '1') then
 SignExtend_Out (31 downto 16) <= (others => SignExtend_In(15));
 SignExtend_Out(15 downto 0) <= SignExtend_In;
 else
-SignExtend_Out (31 downto 0) <= (others => '0');
+SignExtend_Out (31 downto 16) <= (others => '0');
+SignExtend_Out(15 downto 0) <= SignExtend_In;
 end if;
 
 end process;

@@ -237,7 +237,8 @@ SignExtend1    : SignExtention port map
 --<Rest of the logic goes here>
 
 
-combinational: process (Instr, Data_In, AluOp, ReadData1_Reg, AluSrc, SignExtend_Out, ReadData2_Reg, Alu_Out, RegDst, MemtoReg)
+combinational: process (Instr, Data_In, AluOp, ReadData1_Reg, AluSrc, SignExtend_Out,
+								ReadData2_Reg, Alu_Out, RegDst, MemtoReg, InstrtoReg)
 
 begin
 --/fetch--
@@ -273,10 +274,14 @@ else
 	WriteAddr_Reg <= Instr(20 downto 16);
 end if;
 
-if MemtoReg = '1' then
-	WriteData_Reg <= Data_In;
+if InstrtoReg = '1' then
+	WriteData_Reg <= Instr(15 downto 0) & x"0000";
 else
-	WriteData_Reg <= ALU_Out;
+	if MemtoReg = '1' then
+		WriteData_Reg <= Data_In;
+	else
+		WriteData_Reg <= ALU_Out;
+	end if;
 end if;
 --/writeBack--
 
