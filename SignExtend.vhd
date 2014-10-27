@@ -29,13 +29,13 @@ use IEEE.STD_LOGIC_1164.ALL;
 --library UNISIM;
 --use UNISIM.VComponents.all;
 
-entity SignExtend is
+entity SignExtention is
     Port ( SignExtend_In : in  STD_LOGIC_VECTOR (15 downto 0);
            SignExtend_Out : out  STD_LOGIC_VECTOR (31 downto 0);
            Enable : in  STD_LOGIC);
-end SignExtend;
+end SignExtention;
 
-architecture SignExtend_arch of SignExtend is
+architecture SignExtention_arch of SignExtention is
 signal output : STD_LOGIC_VECTOR (31 downto 0) := (others => '0');
 begin
 
@@ -52,5 +52,5 @@ end if;
 end process;
 
 
-end SignExtend_arch;
+end SignExtention_arch;
 

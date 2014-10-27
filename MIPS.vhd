@@ -94,7 +94,10 @@ component RegFile is
 			CLK 				: in  STD_LOGIC);
 end component;
 
-component SignExtend is
+----------------------------------------------------------------
+-- Sign Extend
+----------------------------------------------------------------
+component SignExtention is
 	Port ( SignExtend_In : in  STD_LOGIC_VECTOR (15 downto 0);
            SignExtend_Out : out  STD_LOGIC_VECTOR (31 downto 0);
            Enable : in  STD_LOGIC);
@@ -143,14 +146,15 @@ end component;
 -- Sign Extend Signals
 ----------------------------------------------------------------	
 
-	signal SignExtend_In : STD_LOGIC_VECTOR (15 downto 0);
-	signal SignExtend_Out : STD_LOGIC_VECTOR (31 downto 0);
+	signal 	SignExtend_In	: STD_LOGIC_VECTOR (15 downto 0);
+	signal 	SignExtend_Out	: STD_LOGIC_VECTOR (31 downto 0);
 
 ----------------------------------------------------------------
 -- Other Signals
 ----------------------------------------------------------------
 	--<any other signals used goes here>
  
+
 
 ----------------------------------------------------------------	
 ----------------------------------------------------------------
@@ -219,7 +223,7 @@ RegFile1			: RegFile port map
 ----------------------------------------------------------------
 -- Sign Extend port map
 ----------------------------------------------------------------
-SignExtend1    : SignExtend port map
+SignExtend1    : SignExtention port map
 						(
 						SignExtend_In => SignExtend_In,
 						SignExtend_Out => SignExtend_Out,
@@ -231,8 +235,73 @@ SignExtend1    : SignExtend port map
 -- Processor logic
 ----------------------------------------------------------------
 --<Rest of the logic goes here>
-opcode <= Instr(31 downto 26);
 
+
+combinational: process (Instr, Data_In)
+
+begin
+--/fetch--
+
+--decode--
+opcode <= Instr(31 downto 26);
+ReadAddr1_Reg <= Instr(25 downto 21);
+ReadAddr2_Reg <= Instr(20 downto 16);
+SignExtend_In <= Instr(15 downto 0);
+--/decode
+
+--execute--
+ALU_Control(7 downto 6) <= ALUOp(1 downto 0);
+ALU_Control(5 downto 0) <= Instr(31 downto 26);
+ALU_InA <= ReadData1_Reg;
+
+if ALUSrc = '1' then
+	ALU_InB <= SignExtend_Out;
+else
+	ALU_InB <= ReadData2_Reg;
+end if;
+--/execute--
+
+--mem--
+Addr_Data <= ALU_Out;
+Data_Out <= ReadData2_Reg;
+--/mem--
+
+--writeBack--
+if RegDst = '1' then
+	WriteAddr_Reg <= Instr(15 downto 11);
+else
+	WriteAddr_Reg <= Instr(20 downto 16);
+end if;
+
+if MemtoReg = '1' then
+	WriteData_Reg <= Data_In;
+else
+	WriteData_Reg <= ALU_Out;
+end if;
+--/writeBack--
+
+end process;
+
+synchronous: process (CLK)
+variable PCPlusFour : STD_LOGIC_VECTOR (31 downto 0);
+variable	PCSrc	:  STD_LOGIC;
+begin	
+if (CLK'event and CLK = '1') then
+	PCPlusFour := PC_out + "100";
+	PCSrc := Branch and ALU_zero;
+	if Jump = '1' then
+		PC_in <= PCPlusFour(31 downto 28) & Instr(25 downto 0) & "00";
+	else
+		if PCSrc = '1' then	--if branch and branch is to be taken
+			PC_in <= PCPlusFour + (SignExtend_Out(29 downto 0) & "00");
+		else
+			PC_in <= PCPlusFour;
+		end if;
+	end if;
+	--fetch
+	Addr_Instr <= PC_out;
+end if;
+end process;
 
 
 end arch_MIPS;
