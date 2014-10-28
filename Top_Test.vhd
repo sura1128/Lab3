@@ -85,7 +85,7 @@ BEGIN
    begin		
       -- hold reset state for 100 ns.
       wait for 100 ns;	
-		DIP <= x"0001";
+		DIP <= x"0004";
 		RESET <= '0';
       --wait for CLK_undiv_period*10;
 

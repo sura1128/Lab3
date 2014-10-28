@@ -1,1 +1,1 @@
--intstyle "ise" -incremental -lib "secureip" -o "C:/CG3207/Lab3/ALU_TEST_isim_beh.exe" -prj "C:/CG3207/Lab3/ALU_TEST_beh.prj" "work.ALU_TEST" 
+-intstyle "ise" -incremental -lib "secureip" -o "F:/Documents/School/NUS/Lab3/Top_Test_isim_beh.exe" -prj "F:/Documents/School/NUS/Lab3/Top_Test_beh.prj" "work.Top_Test" 
