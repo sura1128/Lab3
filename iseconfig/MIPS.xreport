@@ -1,12 +1,12 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <report-views version="2.0" >
  <header>
-  <DateModified>2014-10-27T22:14:11</DateModified>
-  <ModuleName>MIPS</ModuleName>
-  <SummaryTimeStamp>Unknown</SummaryTimeStamp>
+  <DateModified>2014-10-28T20:03:13</DateModified>
+  <ModuleName>TOP</ModuleName>
+  <SummaryTimeStamp>2014-10-28T20:00:51</SummaryTimeStamp>
   <SavedFilePath>F:/Documents/School/NUS/Lab3/iseconfig/MIPS.xreport</SavedFilePath>
   <ImplementationReportsDirectory>F:/Documents/School/NUS/Lab3\</ImplementationReportsDirectory>
-  <DateInitialized>2014-10-27T20:58:44</DateInitialized>
+  <DateInitialized>2014-10-28T19:52:48</DateInitialized>
   <EnableMessageFiltering>false</EnableMessageFiltering>
  </header>
  <body>

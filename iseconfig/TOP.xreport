@@ -1,11 +1,11 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <report-views version="2.0" >
  <header>
-  <DateModified>2014-10-26T21:35:24</DateModified>
-  <ModuleName>SignExtend</ModuleName>
+  <DateModified>2014-10-28T20:19:26</DateModified>
+  <ModuleName>TOP</ModuleName>
   <SummaryTimeStamp>2014-10-26T21:34:34</SummaryTimeStamp>
-  <SavedFilePath>C:/CG3207/Lab3/iseconfig/TOP.xreport</SavedFilePath>
-  <ImplementationReportsDirectory>C:/CG3207/Lab3\</ImplementationReportsDirectory>
+  <SavedFilePath>F:/Documents/School/NUS/Lab3/iseconfig/TOP.xreport</SavedFilePath>
+  <ImplementationReportsDirectory>F:/Documents/School/NUS/Lab3\</ImplementationReportsDirectory>
   <DateInitialized>2014-10-26T21:28:44</DateInitialized>
   <EnableMessageFiltering>false</EnableMessageFiltering>
  </header>
