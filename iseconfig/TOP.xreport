@@ -1,12 +1,12 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <report-views version="2.0" >
  <header>
-  <DateModified>2014-10-28T23:52:51</DateModified>
+  <DateModified>2014-10-28T23:54:32</DateModified>
   <ModuleName>TOP</ModuleName>
-  <SummaryTimeStamp>2014-10-28T22:41:20</SummaryTimeStamp>
-  <SavedFilePath>F:/Documents/School/NUS/Lab3/iseconfig/ALU.xreport</SavedFilePath>
-  <ImplementationReportsDirectory>F:/Documents/School/NUS/Lab3\</ImplementationReportsDirectory>
-  <DateInitialized>2014-10-28T23:52:50</DateInitialized>
+  <SummaryTimeStamp>Unknown</SummaryTimeStamp>
+  <SavedFilePath>F:/Documents/School/NUS/Lab3/iseconfig/TOP.xreport</SavedFilePath>
+  <ImplementationReportsDirectory>F:/Documents/School/NUS/Lab3</ImplementationReportsDirectory>
+  <DateInitialized>2014-10-28T23:54:26</DateInitialized>
   <EnableMessageFiltering>false</EnableMessageFiltering>
  </header>
  <body>

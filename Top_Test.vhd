@@ -86,6 +86,7 @@ BEGIN
       -- hold reset state for 100 ns.
       wait for 100 ns;	
 		DIP <= x"0001";
+		RESET <= '0';
       --wait for CLK_undiv_period*10;
 
       -- insert stimulus here 

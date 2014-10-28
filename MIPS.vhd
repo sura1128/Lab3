@@ -153,7 +153,9 @@ end component;
 -- Other Signals
 ----------------------------------------------------------------
 	--<any other signals used goes here>
- 
+		
+	signal	PCPlusFour : STD_LOGIC_VECTOR (31 downto 0);
+	signal	PCSrc	:  STD_LOGIC;
 
 
 ----------------------------------------------------------------	
@@ -237,10 +239,23 @@ SignExtend1    : SignExtention port map
 --<Rest of the logic goes here>
 
 
-combinational: process (Instr, Data_In, AluOp, ReadData1_Reg, AluSrc, SignExtend_Out,
-								ReadData2_Reg, Alu_Out, RegDst, MemtoReg, InstrtoReg)
+combinational: process (Instr, Data_In, AluOp, Branch, Jump, MemtoReg, InstrtoReg, AluSrc, PCPlusFour, PCSrc,
+								SignExtend_Out, RegDst, ReadData1_Reg, ReadData2_Reg, Alu_Out, PC_out, ALU_zero)
 
 begin
+--fetch--
+PCPlusFour <= PC_out + "100";
+PCSrc <= Branch and ALU_zero;
+if Jump = '1' then
+	PC_in <= PCPlusFour(31 downto 28) & Instr(25 downto 0) & "00";
+else
+	if PCSrc = '1' then	--if branch and branch is to be taken
+		PC_in <= PCPlusFour + (SignExtend_Out(29 downto 0) & "00");
+	else
+		PC_in <= PCPlusFour;
+	end if;
+end if;
+Addr_Instr <= PC_out;
 --/fetch--
 
 --decode--
@@ -252,7 +267,7 @@ SignExtend_In <= Instr(15 downto 0);
 
 --execute--
 ALU_Control(7 downto 6) <= ALUOp(1 downto 0);
-ALU_Control(5 downto 0) <= Instr(31 downto 26);
+ALU_Control(5 downto 0) <= Instr(5 downto 0);
 ALU_InA <= ReadData1_Reg;
 
 if ALUSrc = '1' then
@@ -286,28 +301,6 @@ end if;
 --/writeBack--
 
 end process;
-
-synchronous: process (CLK)
-variable PCPlusFour : STD_LOGIC_VECTOR (31 downto 0);
-variable	PCSrc	:  STD_LOGIC;
-begin	
-if (CLK'event and CLK = '1') then
-	PCPlusFour := PC_out + "100";
-	PCSrc := Branch and ALU_zero;
-	if Jump = '1' then
-		PC_in <= PCPlusFour(31 downto 28) & Instr(25 downto 0) & "00";
-	else
-		if PCSrc = '1' then	--if branch and branch is to be taken
-			PC_in <= PCPlusFour + (SignExtend_Out(29 downto 0) & "00");
-		else
-			PC_in <= PCPlusFour;
-		end if;
-	end if;
-	--fetch
-	Addr_Instr <= PC_out;
-end if;
-end process;
-
 
 end arch_MIPS;
 

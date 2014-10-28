@@ -145,7 +145,7 @@ when "00" =>
 		RegWrite <= '1';
 		RegDst <= '0';
 
-	else --R-type
+	elsif opcode(3 downto 0) = "0000" then--R-type
 		ALUOp <= "10";
 		Branch <= '0';
 		Jump <= '0';
@@ -157,8 +157,21 @@ when "00" =>
 		SignExtend <= '0';
 		RegWrite <= '1';
 		RegDst <= '1';
-
+		
+	else
+		ALUOp <= "00";
+		Branch <= '0';
+		Jump <= '0';
+		MemRead <= '0';
+		MemtoReg <= '0';
+		InstrtoReg <= '0';
+		MemWrite <= '0';
+		ALUSrc <= '0';
+		SignExtend <= '0';
+		RegWrite <= '0';
+		RegDst <= '0';
 	end if;
+	
 when others =>
 	ALUOp <= "00";
 		Branch <= '0';
