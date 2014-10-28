@@ -1,0 +1,3 @@
+xst -intstyle ise -ifn "C:/CG3207/Lab3/MIPS.xst" -ofn "C:/CG3207/Lab3/MIPS.syr" 
+ngdbuild -intstyle ise -dd _ngo -nt timestamp -i -p xc7a100t-csg324-1 MIPS.ngc MIPS.ngd  
+map -intstyle ise -p xc7a100t-csg324-1 -w -logic_opt off -ol high -t 1 -xt 0 -register_duplication off -r 4 -mt off -ir off -pr off -lc off -power off -o MIPS_map.ncd MIPS.ngd MIPS.pcf 
