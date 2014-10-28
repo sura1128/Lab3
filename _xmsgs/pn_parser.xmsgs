@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- IMPORTANT: This is an internal file that has been generated   -->
+<!--     by the Xilinx ISE software.  Any direct editing or        -->
+<!--     changes made to this file may result in unpredictable     -->
+<!--     behavior or data corruption.  It is strongly advised that -->
+<!--     users do not edit the contents of this file.              -->
+<!--                                                               -->
+<!-- Copyright (c) 1995-2013 Xilinx, Inc.  All rights reserved.    -->
+
+<messages>
+<msg type="info" file="ProjectMgmt" num="1061" ><arg fmt="%s" index="1">Parsing VHDL file &quot;C:/Users/SIPL/Documents/Lab3/TOP.vhd&quot; into library work</arg>
+</msg>
+
+<msg type="error" file="ProjectMgmt" num="806" >&quot;<arg fmt="%s" index="1">C:/Users/SIPL/Documents/Lab3/TOP.vhd</arg>&quot; Line <arg fmt="%d" index="2">248</arg>. <arg fmt="%s" index="3">Syntax error near &quot;ori&quot;.</arg>
+</msg>
+
+<msg type="error" file="ProjectMgmt" num="806" >&quot;<arg fmt="%s" index="1">C:/Users/SIPL/Documents/Lab3/TOP.vhd</arg>&quot; Line <arg fmt="%d" index="2">249</arg>. <arg fmt="%s" index="3">Syntax error near &quot;#&quot;.</arg>
+</msg>
+
+<msg type="error" file="ProjectMgmt" num="806" >&quot;<arg fmt="%s" index="1">C:/Users/SIPL/Documents/Lab3/TOP.vhd</arg>&quot; Line <arg fmt="%d" index="2">250</arg>. <arg fmt="%s" index="3">Syntax error near &quot;$&quot;.</arg>
+</msg>
+
+<msg type="error" file="ProjectMgmt" num="806" >&quot;<arg fmt="%s" index="1">C:/Users/SIPL/Documents/Lab3/TOP.vhd</arg>&quot; Line <arg fmt="%d" index="2">251</arg>. <arg fmt="%s" index="3">Syntax error near &quot;$&quot;.</arg>
+</msg>
+
+<msg type="error" file="ProjectMgmt" num="806" >&quot;<arg fmt="%s" index="1">C:/Users/SIPL/Documents/Lab3/TOP.vhd</arg>&quot; Line <arg fmt="%d" index="2">252</arg>. <arg fmt="%s" index="3">Syntax error near &quot;$&quot;.</arg>
+</msg>
+
+<msg type="error" file="ProjectMgmt" num="806" >&quot;<arg fmt="%s" index="1">C:/Users/SIPL/Documents/Lab3/TOP.vhd</arg>&quot; Line <arg fmt="%d" index="2">254</arg>. <arg fmt="%s" index="3">Syntax error near &quot;$&quot;.</arg>
+</msg>
+
+<msg type="error" file="ProjectMgmt" num="806" >&quot;<arg fmt="%s" index="1">C:/Users/SIPL/Documents/Lab3/TOP.vhd</arg>&quot; Line <arg fmt="%d" index="2">255</arg>. <arg fmt="%s" index="3">Syntax error near &quot;$&quot;.</arg>
+</msg>
+
+<msg type="error" file="ProjectMgmt" num="806" >&quot;<arg fmt="%s" index="1">C:/Users/SIPL/Documents/Lab3/TOP.vhd</arg>&quot; Line <arg fmt="%d" index="2">257</arg>. <arg fmt="%s" index="3">Syntax error near &quot;$&quot;.</arg>
+</msg>
+
+<msg type="error" file="ProjectMgmt" num="806" >&quot;<arg fmt="%s" index="1">C:/Users/SIPL/Documents/Lab3/TOP.vhd</arg>&quot; Line <arg fmt="%d" index="2">258</arg>. <arg fmt="%s" index="3">Syntax error near &quot;$&quot;.</arg>
+</msg>
+
+<msg type="error" file="ProjectMgmt" num="806" >&quot;<arg fmt="%s" index="1">C:/Users/SIPL/Documents/Lab3/TOP.vhd</arg>&quot; Line <arg fmt="%d" index="2">259</arg>. <arg fmt="%s" index="3">Syntax error near &quot;$&quot;.</arg>
+</msg>
+
+<msg type="error" file="ProjectMgmt" num="806" >&quot;<arg fmt="%s" index="1">C:/Users/SIPL/Documents/Lab3/TOP.vhd</arg>&quot; Line <arg fmt="%d" index="2">260</arg>. <arg fmt="%s" index="3">Syntax error near &quot;$&quot;.</arg>
+</msg>
+
+<msg type="error" file="ProjectMgmt" num="806" >&quot;<arg fmt="%s" index="1">C:/Users/SIPL/Documents/Lab3/TOP.vhd</arg>&quot; Line <arg fmt="%d" index="2">263</arg>. <arg fmt="%s" index="3">Syntax error near &quot;$&quot;.</arg>
+</msg>
+
+<msg type="error" file="ProjectMgmt" num="806" >&quot;<arg fmt="%s" index="1">C:/Users/SIPL/Documents/Lab3/TOP.vhd</arg>&quot; Line <arg fmt="%d" index="2">264</arg>. <arg fmt="%s" index="3">Syntax error near &quot;$&quot;.</arg>
+</msg>
+
+<msg type="error" file="ProjectMgmt" num="806" >&quot;<arg fmt="%s" index="1">C:/Users/SIPL/Documents/Lab3/TOP.vhd</arg>&quot; Line <arg fmt="%d" index="2">265</arg>. <arg fmt="%s" index="3">Syntax error near &quot;$&quot;.</arg>
+</msg>
+
+<msg type="error" file="ProjectMgmt" num="806" >&quot;<arg fmt="%s" index="1">C:/Users/SIPL/Documents/Lab3/TOP.vhd</arg>&quot; Line <arg fmt="%d" index="2">266</arg>. <arg fmt="%s" index="3">Syntax error near &quot;$&quot;.</arg>
+</msg>
+
+<msg type="error" file="ProjectMgmt" num="806" >&quot;<arg fmt="%s" index="1">C:/Users/SIPL/Documents/Lab3/TOP.vhd</arg>&quot; Line <arg fmt="%d" index="2">267</arg>. <arg fmt="%s" index="3">Syntax error near &quot;$&quot;.</arg>
+</msg>
+
+<msg type="error" file="ProjectMgmt" num="806" >&quot;<arg fmt="%s" index="1">C:/Users/SIPL/Documents/Lab3/TOP.vhd</arg>&quot; Line <arg fmt="%d" index="2">269</arg>. <arg fmt="%s" index="3">Syntax error near &quot;#&quot;.</arg>
+</msg>
+
+</messages>
+
