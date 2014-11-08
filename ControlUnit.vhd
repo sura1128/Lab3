@@ -35,8 +35,8 @@ entity ControlUnit is
 end ControlUnit;
 
 
-architecture arch_ControlUnit of ControlUnit is  
-begin   
+architecture arch_ControlUnit of ControlUnit is
+begin
 --
 --<implement control unit here>
 process (opcode)
@@ -59,6 +59,7 @@ when "10" => -- I-type
 	SignExtend <= '1';
 	RegWrite <= '1';
 	RegDst <= '0';
+
 	
 	elsif opcode(3 downto 0) = "1011" then --sw
 	
@@ -73,6 +74,7 @@ when "10" => -- I-type
 	SignExtend <= '1';
 	RegWrite <= '0';
 	RegDst <= '0';
+	
 	
 	else
 		ALUOp <= "00";
@@ -89,8 +91,50 @@ when "10" => -- I-type
 	end if;
 	
 when "00" => 
+
+	if opcode(3 downto 0) = "0000" then --R-type
+		ALUOp <= "10";
+		Branch <= '0';
+		Jump <= '0';
+		MemRead <= '0';
+		MemtoReg <= '0';
+		InstrtoReg <= '0';
+		MemWrite <= '0';
+		ALUSrc <= '0';
+		SignExtend <= '0';
+		RegWrite <= '1';
+		RegDst <= '1';
+		
+	elsif opcode(3 downto 0) = "1000" then --ADDI
+		ALUOp <= "01";
+		Branch <= '0';
+		Jump <= '0';
+		MemRead <= '0';
+		MemtoReg <= '0';
+		InstrtoReg <= '0';
+		MemWrite <= '0';
+		ALUSrc <= '1';
+		SignExtend <= '1';
+		RegWrite <= '1';
+		RegDst <= '0';
 	
-	if opcode(3 downto 0) = "0100" then --BEQ
+
+	
+	elsif opcode(3 downto 0) = "0100" then --BEQ
+		--<output>
+		ALUOp <= "01";
+		Branch <= '1';
+		Jump <= '0';
+		MemRead <= '0';
+		MemtoReg <= '0';
+		InstrtoReg <= '0';
+		MemWrite <= '0';
+		ALUSrc <= '0';
+		SignExtend <= '1';
+		RegWrite <= '0';
+		RegDst <= '0';
+		
+	elsif opcode(3 downto 0) = "0001" then --BGEZ, BGEZAL
 		--<output>
 		ALUOp <= "01";
 		Branch <= '1';
@@ -106,6 +150,20 @@ when "00" =>
 
 
 	elsif opcode(3 downto 0) = "0010" then --J
+		--<output>
+		ALUOp <= "01";
+		Branch <= '0';
+		Jump <= '1';
+		MemRead <= '0';
+		MemtoReg <= '0';
+		InstrtoReg <= '0';
+		MemWrite <= '0';
+		ALUSrc <= '0';
+		SignExtend <= '0';
+		RegWrite <= '0';
+		RegDst <= '0';
+		
+	elsif opcode(3 downto 0) = "0011" then --JAL
 		--<output>
 		ALUOp <= "01";
 		Branch <= '0';
@@ -144,19 +202,6 @@ when "00" =>
 		SignExtend <= '0';
 		RegWrite <= '1';
 		RegDst <= '0';
-
-	elsif opcode(3 downto 0) = "0000" then--R-type
-		ALUOp <= "10";
-		Branch <= '0';
-		Jump <= '0';
-		MemRead <= '0';
-		MemtoReg <= '0';
-		InstrtoReg <= '0';
-		MemWrite <= '0';
-		ALUSrc <= '0';
-		SignExtend <= '0';
-		RegWrite <= '1';
-		RegDst <= '1';
 		
 	else
 		ALUOp <= "00";
@@ -171,7 +216,7 @@ when "00" =>
 		RegWrite <= '0';
 		RegDst <= '0';
 	end if;
-	
+ 	
 when others =>
 	ALUOp <= "00";
 		Branch <= '0';
