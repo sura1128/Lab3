@@ -20,7 +20,7 @@ use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.STD_LOGIC_unsigned.ALL;
 
 entity ControlUnit is
-    Port ( 	opcode 		: in  STD_LOGIC_VECTOR (5 downto 0);
+    Port ( 	instr 		: in  STD_LOGIC_VECTOR (31 downto 0);
 				ALUOp 		: out  STD_LOGIC_VECTOR (1 downto 0);
 				Branch 		: out  STD_LOGIC;		
 				Jump	 		: out  STD_LOGIC;	
@@ -31,7 +31,10 @@ entity ControlUnit is
 				ALUSrc 		: out  STD_LOGIC;	
 				SignExtend 	: out  STD_LOGIC;
 				RegWrite		: out  STD_LOGIC;	
-				RegDst		: out  STD_LOGIC);
+				RegDst		: out  STD_LOGIC;
+				
+				HL_Read     : out STD_LOGIC;
+				HL_write    : out STD_LOGIC);  
 end ControlUnit;
 
 
@@ -39,14 +42,14 @@ architecture arch_ControlUnit of ControlUnit is
 begin
 --
 --<implement control unit here>
-process (opcode)
+process (instr)
 begin
 
-case opcode(5 downto 4) is
+case instr(31 downto 30) is
 
 when "10" => -- I-type
 
-	if opcode(3 downto 0) = "0011" then -- lw
+	if instr(29 downto 26) = "0011" then -- lw
 	
 	ALUOp <= "00";
 	Branch <= '0';
@@ -59,9 +62,11 @@ when "10" => -- I-type
 	SignExtend <= '1';
 	RegWrite <= '1';
 	RegDst <= '0';
+	HL_Read <= '0';
+	HL_Write <= '0';		
 
 	
-	elsif opcode(3 downto 0) = "1011" then --sw
+	elsif instr(29 downto 26) = "1011" then --sw
 	
 	ALUOp <= "00";
 	Branch <= '0';
@@ -74,7 +79,9 @@ when "10" => -- I-type
 	SignExtend <= '1';
 	RegWrite <= '0';
 	RegDst <= '0';
-	
+	HL_Read <= '0';
+	HL_Write <= '0';		
+
 	
 	else
 		ALUOp <= "00";
@@ -88,11 +95,14 @@ when "10" => -- I-type
 		SignExtend <= '0';
 		RegWrite <= '0';
 		RegDst <= '0';
+		HL_Read <= '0';
+		HL_Write <= '0';		
+
 	end if;
 	
 when "00" => 
 
-	if opcode(3 downto 0) = "0000" then --R-type
+	if instr(29 downto 26) = "0000" then --R-type
 		ALUOp <= "10";
 		Branch <= '0';
 		Jump <= '0';
@@ -104,8 +114,18 @@ when "00" =>
 		SignExtend <= '0';
 		RegWrite <= '1';
 		RegDst <= '1';
+		if (instr(5 downto 0) = "011000" || instr(5 downto 0) = "011001" || instr(5 downto 0) = "011010" ||instr(5 downto 0) = "011011") then
+			HL_Write <= '1';
+			HL_Read <= '0';
+		elsif (instr(5 downto 0) = "010000" || instr(5 downto 0) = "010010") then
+			HL_Read <= '1';
+			HL_Write <= '0';
+		else
+			HL_Read <= '0';
+			HL_Write <= '0';			
+		end if;	
 		
-	elsif opcode(3 downto 0) = "1000" then --ADDI
+	elsif instr(29 downto 26) = "1000" then --ADDI
 		ALUOp <= "00";
 		Branch <= '0';
 		Jump <= '0';
@@ -117,10 +137,10 @@ when "00" =>
 		SignExtend <= '1';
 		RegWrite <= '1';
 		RegDst <= '0';
+		HL_Read <= '0';
+		HL_Write <= '0';
 	
-
-	
-	elsif opcode(3 downto 0) = "0100" then --BEQ
+	elsif instr(29 downto 26) = "0100" then --BEQ
 		--<output>
 		ALUOp <= "01";
 		Branch <= '1';
@@ -133,8 +153,10 @@ when "00" =>
 		SignExtend <= '1';
 		RegWrite <= '0';
 		RegDst <= '0';
-		
-	elsif opcode(3 downto 0) = "0001" then --BGEZ, BGEZAL
+		HL_Read <= '0';
+		HL_Write <= '0';		
+	
+	elsif instr(29 downto 26) = "0001" then --BGEZ, BGEZAL
 		--<output>
 		ALUOp <= "01";
 		Branch <= '1';
@@ -147,9 +169,11 @@ when "00" =>
 		SignExtend <= '1';
 		RegWrite <= '0';
 		RegDst <= '0';
+		HL_Read <= '0';
+		HL_Write <= '0';		
 
 
-	elsif opcode(3 downto 0) = "0010" then --J
+	elsif instr(29 downto 26) = "0010" then --J
 		--<output>
 		ALUOp <= "01";
 		Branch <= '0';
@@ -162,8 +186,11 @@ when "00" =>
 		SignExtend <= '0';
 		RegWrite <= '0';
 		RegDst <= '0';
+		HL_Read <= '0';
+		HL_Write <= '0';		
+
 		
-	elsif opcode(3 downto 0) = "0011" then --JAL
+	elsif instr(29 downto 26) = "0011" then --JAL
 		--<output>
 		ALUOp <= "01";
 		Branch <= '0';
@@ -176,8 +203,11 @@ when "00" =>
 		SignExtend <= '0';
 		RegWrite <= '0';
 		RegDst <= '0';
+		HL_Read <= '0';
+		HL_Write <= '0';		
+
 	
-	elsif opcode(3 downto 0) = "1101" then --ori
+	elsif instr(29 downto 26) = "1101" then --ori
 		ALUOp <= "11";
 		Branch <= '0';
 		Jump <= '0';
@@ -189,8 +219,11 @@ when "00" =>
 		SignExtend <= '0';
 		RegWrite <= '1';
 		RegDst <= '0';
+		HL_Read <= '0';
+		HL_Write <= '0';		
+
 		
-	elsif opcode(3 downto 0) = "1111" then --lui
+	elsif instr(29 downto 26) = "1111" then --lui
 		ALUOp <= "00";
 		Branch <= '0';
 		Jump <= '0';
@@ -202,6 +235,9 @@ when "00" =>
 		SignExtend <= '0';
 		RegWrite <= '1';
 		RegDst <= '0';
+		HL_Read <= '0';
+		HL_Write <= '0';		
+
 		
 	else
 		ALUOp <= "00";
@@ -215,10 +251,13 @@ when "00" =>
 		SignExtend <= '0';
 		RegWrite <= '0';
 		RegDst <= '0';
+		HL_Read <= '0';
+		HL_Write <= '0';		
+
 	end if;
  	
 when others =>
-	ALUOp <= "00";
+		ALUOp <= "00";
 		Branch <= '0';
 		Jump <= '0';
 		MemRead <= '0';
@@ -229,6 +268,9 @@ when others =>
 		SignExtend <= '0';
 		RegWrite <= '0';
 		RegDst <= '0';
+		HL_Read <= '0';
+		HL_Write <= '0';		
+
 end case;
 
 end process;

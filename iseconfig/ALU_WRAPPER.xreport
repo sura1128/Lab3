@@ -1,11 +1,11 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <report-views version="2.0" >
  <header>
-  <DateModified>2014-11-08T18:55:01</DateModified>
+  <DateModified>2014-11-08T23:12:01</DateModified>
   <ModuleName>ALU_WRAPPER</ModuleName>
   <SummaryTimeStamp>2014-11-08T18:54:35</SummaryTimeStamp>
   <SavedFilePath>C:/CG3207/Lab3/iseconfig/ALU_WRAPPER.xreport</SavedFilePath>
-  <ImplementationReportsDirectory>C:/CG3207/Lab3</ImplementationReportsDirectory>
+  <ImplementationReportsDirectory>C:/CG3207/Lab3\</ImplementationReportsDirectory>
   <DateInitialized>2014-11-08T18:53:59</DateInitialized>
   <EnableMessageFiltering>false</EnableMessageFiltering>
  </header>

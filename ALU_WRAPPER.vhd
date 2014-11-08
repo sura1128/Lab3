@@ -40,6 +40,8 @@ entity ALU_WRAPPER is
 			  Status		: out	STD_LOGIC_VECTOR (2 downto 0);
 			  ALU_zero		: out STD_LOGIC;
 			  ALU_greater	: out STD_LOGIC);
+			  
+			  
 end ALU_WRAPPER;
 
 architecture ALU_WRAPPER_ARCHI of ALU_WRAPPER is

@@ -120,10 +120,10 @@ end component;
 	signal	  Result1		:  STD_LOGIC_VECTOR (31 downto 0);
 	signal	  Result2		:  STD_LOGIC_VECTOR (31 downto 0);
 	signal	  Status		: 	STD_LOGIC_VECTOR (2 downto 0);
-	signal	ALU_InA 		:  STD_LOGIC_VECTOR (31 downto 0);
-	signal	ALU_InB 		:  STD_LOGIC_VECTOR (31 downto 0);
-	signal	ALU_Control	:  STD_LOGIC_VECTOR (7 downto 0);
-	signal	ALU_zero		:  STD_LOGIC;		
+	signal	  ALU_InA 		:  STD_LOGIC_VECTOR (31 downto 0);
+	signal	  ALU_InB 		:  STD_LOGIC_VECTOR (31 downto 0);
+	signal	  ALU_Control	:  STD_LOGIC_VECTOR (7 downto 0);
+	signal	  ALU_zero		:  STD_LOGIC;		
 	signal	  ALU_greater	:  STD_LOGIC;	
 
 ----------------------------------------------------------------
@@ -271,7 +271,7 @@ Addr_Instr <= PC_out;
 --/fetch--
 
 --decode--
-opcode <= Instr(31 downto 26);
+opcode <= Instr;
 ReadAddr1_Reg <= Instr(25 downto 21);
 ReadAddr2_Reg <= Instr(20 downto 16);
 SignExtend_In <= Instr(15 downto 0);
