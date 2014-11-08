@@ -33,8 +33,12 @@ entity ControlUnit is
 				RegWrite		: out  STD_LOGIC;	
 				RegDst		: out  STD_LOGIC;
 				
-				HL_Read     : out STD_LOGIC;
-				HL_write    : out STD_LOGIC);  
+				HI_Read     : out STD_LOGIC;
+				LO_Read     : out STD_LOGIC;
+				HL_write    : out STD_LOGIC;
+				JR    : out STD_LOGIC;
+				LINK_DEST   : out STD_LOGIC;
+				BGEZ : out STD_LOGIC); 
 end ControlUnit;
 
 
@@ -62,8 +66,12 @@ when "10" => -- I-type
 	SignExtend <= '1';
 	RegWrite <= '1';
 	RegDst <= '0';
-	HL_Read <= '0';
-	HL_Write <= '0';		
+	HI_Read <= '0';
+	LO_Read <= '0';
+	HL_Write <= '0';
+	JR <= '0';
+	LINK_DEST <= '0';
+	BGEZ <= '0';		
 
 	
 	elsif instr(29 downto 26) = "1011" then --sw
@@ -79,9 +87,12 @@ when "10" => -- I-type
 	SignExtend <= '1';
 	RegWrite <= '0';
 	RegDst <= '0';
-	HL_Read <= '0';
-	HL_Write <= '0';		
-
+	HI_Read <= '0';
+	LO_Read <= '0';
+	HL_Write <= '0';
+	JR <= '0';		
+	LINK_DEST <= '0';
+	BGEZ <= '0';		
 	
 	else
 		ALUOp <= "00";
@@ -95,8 +106,12 @@ when "10" => -- I-type
 		SignExtend <= '0';
 		RegWrite <= '0';
 		RegDst <= '0';
-		HL_Read <= '0';
-		HL_Write <= '0';		
+		HI_Read <= '0';
+		LO_Read <= '0';
+		HL_Write <= '0';
+		JR <= '0';	
+		LINK_DEST <= '0';
+		BGEZ <= '0';			
 
 	end if;
 	
@@ -105,24 +120,43 @@ when "00" =>
 	if instr(29 downto 26) = "0000" then --R-type
 		ALUOp <= "10";
 		Branch <= '0';
-		Jump <= '0';
 		MemRead <= '0';
 		MemtoReg <= '0';
 		InstrtoReg <= '0';
 		MemWrite <= '0';
 		ALUSrc <= '0';
 		SignExtend <= '0';
-		RegWrite <= '1';
-		RegDst <= '1';
-		if (instr(5 downto 0) = "011000" || instr(5 downto 0) = "011001" || instr(5 downto 0) = "011010" ||instr(5 downto 0) = "011011") then
+		LINK_DEST <= '0';
+		BGEZ <= '0';			
+
+		if (instr(5 downto 0) = "001000") then --JR
+			jump <= '1'; 
+			RegWrite <= '0';
+			RegDst <= '0';
+			JR <= '1';
+		else 
+			jump <= '0';
+			RegWrite <= '1';
+			RegDst <= '1';
+			JR <= '0';	
+		end if;
+
+		if ((instr(5 downto 0) = "011000") or (instr(5 downto 0) = "011001") or (instr(5 downto 0) = "011010") or (instr(5 downto 0) = "011011")) then
 			HL_Write <= '1';
-			HL_Read <= '0';
-		elsif (instr(5 downto 0) = "010000" || instr(5 downto 0) = "010010") then
-			HL_Read <= '1';
+			HI_Read <= '0';
+			LO_Read <= '0';
+		elsif (instr(5 downto 0) = "010000") then
+			HI_Read <= '1';
 			HL_Write <= '0';
+			LO_Read <= '0';
+		elsif (instr(5 downto 0) = "010010") then 
+			HI_Read <= '0';
+			HL_Write <= '0';
+			LO_Read <= '1';	
 		else
-			HL_Read <= '0';
-			HL_Write <= '0';			
+			HI_Read <= '0';
+			HL_Write <= '0';
+			LO_Read <= '0';			
 		end if;	
 		
 	elsif instr(29 downto 26) = "1000" then --ADDI
@@ -137,8 +171,12 @@ when "00" =>
 		SignExtend <= '1';
 		RegWrite <= '1';
 		RegDst <= '0';
-		HL_Read <= '0';
+		HI_Read <= '0';
 		HL_Write <= '0';
+		LO_Read <= '0';
+		JR <= '0';
+		LINK_DEST <= '0';	
+		BGEZ <= '0';	
 	
 	elsif instr(29 downto 26) = "0100" then --BEQ
 		--<output>
@@ -153,10 +191,16 @@ when "00" =>
 		SignExtend <= '1';
 		RegWrite <= '0';
 		RegDst <= '0';
-		HL_Read <= '0';
-		HL_Write <= '0';		
+		HI_READ <= '0';
+		HL_Write <= '0';
+		LO_Read <= '0';
+		JR <= '0';	
+		LINK_DEST <= '0';	
+		BGEZ <= '0';			
 	
 	elsif instr(29 downto 26) = "0001" then --BGEZ, BGEZAL
+
+		
 		--<output>
 		ALUOp <= "01";
 		Branch <= '1';
@@ -169,8 +213,22 @@ when "00" =>
 		SignExtend <= '1';
 		RegWrite <= '0';
 		RegDst <= '0';
-		HL_Read <= '0';
-		HL_Write <= '0';		
+		HI_READ <= '0';
+		HL_Write <= '0';
+		LO_Read <= '0';
+		JR <= '0';	
+		
+
+		if (instr(20 downto 16) = "00001") then 
+		BGEZ <= '1';
+		LINK_DEST <= '0';
+		elsif (instr(20 downto 16) = "10001" ) then
+		BGEZ <= '1';
+		LINK_DEST <= '1';
+		else 
+		BGEZ <= '0';
+		LINK_DEST <= '0';
+		end if; 
 
 
 	elsif instr(29 downto 26) = "0010" then --J
@@ -186,11 +244,15 @@ when "00" =>
 		SignExtend <= '0';
 		RegWrite <= '0';
 		RegDst <= '0';
-		HL_Read <= '0';
-		HL_Write <= '0';		
+		HI_READ <= '0';
+		HL_Write <= '0';
+		LO_Read <= '0';
+		JR <= '0';	
+		LINK_DEST <= '0';
+		BGEZ <= '0';				
 
 		
-	elsif instr(29 downto 26) = "0011" then --JAL
+	elsif instr(29 downto 26) = "0011" then --LINK_DEST
 		--<output>
 		ALUOp <= "01";
 		Branch <= '0';
@@ -201,11 +263,14 @@ when "00" =>
 		MemWrite <= '0';
 		ALUSrc <= '0';
 		SignExtend <= '0';
-		RegWrite <= '0';
+		RegWrite <= '1';
 		RegDst <= '0';
-		HL_Read <= '0';
-		HL_Write <= '0';		
-
+		HI_READ <= '0';
+		HL_Write <= '0';
+		LO_Read <= '0';	
+		JR <= '0';
+		LINK_DEST <= '1';
+		BGEZ <= '0';
 	
 	elsif instr(29 downto 26) = "1101" then --ori
 		ALUOp <= "11";
@@ -219,8 +284,12 @@ when "00" =>
 		SignExtend <= '0';
 		RegWrite <= '1';
 		RegDst <= '0';
-		HL_Read <= '0';
-		HL_Write <= '0';		
+		HI_READ <= '0';
+		HL_Write <= '0';
+		LO_Read <= '0';	
+		JR <= '0';
+		LINK_DEST <= '0';	
+		BGEZ <= '0';		
 
 		
 	elsif instr(29 downto 26) = "1111" then --lui
@@ -235,8 +304,12 @@ when "00" =>
 		SignExtend <= '0';
 		RegWrite <= '1';
 		RegDst <= '0';
-		HL_Read <= '0';
-		HL_Write <= '0';		
+		HI_READ <= '0';
+		HL_Write <= '0';
+		LO_Read <= '0';		
+		JR <= '0';
+		LINK_DEST <= '0';
+		BGEZ <= '0';			
 
 		
 	else
@@ -251,8 +324,12 @@ when "00" =>
 		SignExtend <= '0';
 		RegWrite <= '0';
 		RegDst <= '0';
-		HL_Read <= '0';
-		HL_Write <= '0';		
+		HI_READ <= '0';
+		HL_Write <= '0';
+		LO_Read <= '0';
+		JR <= '0';
+		LINK_DEST <= '0';
+		BGEZ <= '0';				
 
 	end if;
  	
@@ -268,8 +345,13 @@ when others =>
 		SignExtend <= '0';
 		RegWrite <= '0';
 		RegDst <= '0';
-		HL_Read <= '0';
-		HL_Write <= '0';		
+		HI_READ <= '0';
+		HL_Write <= '0';
+		LO_Read <= '0';
+		JR <= '0';
+		LINK_DEST <= '0';	
+		BGEZ <= '0';	
+
 
 end case;
 

@@ -45,6 +45,7 @@ component PC is
 			PC_in 	: in STD_LOGIC_VECTOR (31 downto 0);
 			PC_out 	: out STD_LOGIC_VECTOR (31 downto 0);
 			RESET		: in STD_LOGIC;
+			PC_Enable   : in STD_LOGIC;
 			CLK		: in STD_LOGIC);
 end component;
 
@@ -52,15 +53,15 @@ end component;
 -- ALU_WRAPPER
 ----------------------------------------------------------------
 component ALU_WRAPPER is
-     Port ( RST : in  STD_LOGIC;
+     Port (clk : in std_logic; 
+			  RST : in  STD_LOGIC;
 			  ALU_InA 		: in  STD_LOGIC_VECTOR (31 downto 0);				
 			  ALU_InB 		: in  STD_LOGIC_VECTOR (31 downto 0);
            Control_In : in  STD_LOGIC_VECTOR (7 downto 0);
 			  Result1		: out STD_LOGIC_VECTOR (31 downto 0);
 			  Result2		: out STD_LOGIC_VECTOR (31 downto 0);
 			  Status		: out	STD_LOGIC_VECTOR (2 downto 0);
-			  ALU_zero		: out STD_LOGIC;
-			  ALU_greater	: out STD_LOGIC);
+			  ALU_zero		: out STD_LOGIC);
 end component;
 
 ----------------------------------------------------------------
@@ -68,7 +69,7 @@ end component;
 ----------------------------------------------------------------
 component ControlUnit is
     Port ( 	
-			opcode 		: in   STD_LOGIC_VECTOR (5 downto 0);
+			instr 		: in  STD_LOGIC_VECTOR (31 downto 0);
 			ALUOp 		: out  STD_LOGIC_VECTOR (1 downto 0);
 			Branch 		: out  STD_LOGIC;
 			Jump	 		: out  STD_LOGIC;				
@@ -79,7 +80,13 @@ component ControlUnit is
 			ALUSrc 		: out  STD_LOGIC;	
 			SignExtend 	: out  STD_LOGIC; -- false for ORI 
 			RegWrite		: out  STD_LOGIC;	
-			RegDst		: out  STD_LOGIC);
+			RegDst		: out  STD_LOGIC;
+			HI_Read     : out STD_LOGIC;
+			LO_Read     : out STD_LOGIC;
+			HL_write    : out STD_LOGIC;
+			JR          : out STD_LOGIC;
+			LINK_DEST   : out STD_LOGIC;
+			BGEZ : out STD_LOGIC);   
 end component;
 
 ----------------------------------------------------------------
@@ -111,6 +118,7 @@ end component;
 ----------------------------------------------------------------
 	signal	PC_in 		:  STD_LOGIC_VECTOR (31 downto 0);
 	signal	PC_out 		:  STD_LOGIC_VECTOR (31 downto 0);
+	signal 	PC_Enable   : STD_LOGIC;
 
 ----------------------------------------------------------------
 -- ALU_WRAPPER Signals
@@ -123,13 +131,11 @@ end component;
 	signal	  ALU_InA 		:  STD_LOGIC_VECTOR (31 downto 0);
 	signal	  ALU_InB 		:  STD_LOGIC_VECTOR (31 downto 0);
 	signal	  ALU_Control	:  STD_LOGIC_VECTOR (7 downto 0);
-	signal	  ALU_zero		:  STD_LOGIC;		
-	signal	  ALU_greater	:  STD_LOGIC;	
+	signal	  ALU_zero		:  STD_LOGIC;
 
 ----------------------------------------------------------------
 -- Control Unit Signals
 ----------------------------------------------------------------				
- 	signal	opcode 		:  STD_LOGIC_VECTOR (5 downto 0);
 	signal	ALUOp 		:  STD_LOGIC_VECTOR (1 downto 0);
 	signal	Branch 		:  STD_LOGIC;
 	signal	Jump	 		:  STD_LOGIC;	
@@ -139,6 +145,12 @@ end component;
 	signal	SignExtend 	: 	STD_LOGIC;
 	signal	RegWrite		: 	STD_LOGIC;	
 	signal	RegDst		:  STD_LOGIC;
+	signal   HI_Read     :  STD_LOGIC;
+	signal   HL_Write    :  STD_LOGIC;
+	signal   LO_Read     :  STD_LOGIC;
+	signal   JR     :  STD_LOGIC;
+	signal   LINK_DEST   : STD_LOGIC;
+	signal   BGEZ   : STD_LOGIC;
 
 ----------------------------------------------------------------
 -- Register File Signals
@@ -164,6 +176,11 @@ end component;
 		
 	signal	PCPlusFour : STD_LOGIC_VECTOR (31 downto 0);
 	signal	PCSrc	:  STD_LOGIC;
+	signal  PCBGEZ	:  STD_LOGIC;	
+
+	--Other Signals ---
+	signal HIGH : STD_LOGIC_VECTOR(31 downto 0);
+	signal LOW : STD_LOGIC_VECTOR(31 downto 0);
 
 
 ----------------------------------------------------------------	
@@ -181,6 +198,7 @@ PC1				: PC port map
 						PC_in 	=> PC_in, 
 						PC_out 	=> PC_out, 
 						RESET 	=> RESET,
+						PC_Enable => PC_Enable,
 						CLK 		=> CLK
 						);
 						
@@ -189,6 +207,7 @@ PC1				: PC port map
 ----------------------------------------------------------------
 ALU_WRAPPER1 				: ALU_WRAPPER port map
 						(
+							clk=>clk,
 						RST => RESET,	
 						ALU_InA 		=> ALU_InA, 
 						ALU_InB 		=> ALU_InB, 
@@ -196,16 +215,15 @@ ALU_WRAPPER1 				: ALU_WRAPPER port map
 						Result2 		=> Result2,						
 						Control_In  => ALU_Control, 
 						ALU_zero  	=> ALU_zero,
-						Status		=> Status,
-						ALU_greater	=> ALU_greater
+						Status		=> Status
 						);
 						
 ----------------------------------------------------------------
--- PC port map
+-- Control port map
 ----------------------------------------------------------------
 ControlUnit1 	: ControlUnit port map
 						(
-						opcode 		=> opcode, 
+						instr		=> instr, 
 						ALUOp 		=> ALUOp, 
 						Branch 		=> Branch, 
 						Jump 			=> Jump, 
@@ -216,7 +234,13 @@ ControlUnit1 	: ControlUnit port map
 						ALUSrc 		=> ALUSrc, 
 						SignExtend 	=> SignExtend, 
 						RegWrite 	=> RegWrite, 
-						RegDst 		=> RegDst
+						RegDst 		=> RegDst,
+						HI_Read     => HI_Read,
+						LO_Read     => LO_Read,
+						HL_Write    => HL_Write,
+						JR => JR,
+						LINK_DEST => LINK_DEST,
+						BGEZ => BGEZ
 						);
 						
 ----------------------------------------------------------------
@@ -251,17 +275,34 @@ SignExtend1    : SignExtention port map
 --<Rest of the logic goes here>
 
 
+
 combinational: process (Instr, Data_In, AluOp, Branch, Jump, MemtoReg, InstrtoReg, AluSrc, PCPlusFour, PCSrc,
-								SignExtend_Out, RegDst, ReadData1_Reg, ReadData2_Reg, Alu_Out, PC_out, ALU_zero)
+								SignExtend_Out, RegDst, ReadData1_Reg, ReadData2_Reg, Result1, PC_out, ALU_zero, status,
+								bgez, jr, pcbgez, link_dest, hi_read, lo_read, high, low)
 
 begin
 --fetch--
+--pc stalling--
+PC_Enable <= (NOT Status(2));
+--/pcstalling--
+
 PCPlusFour <= PC_out + "100";
 PCSrc <= Branch and ALU_zero;
-if Jump = '1' then
-	PC_in <= PCPlusFour(31 downto 28) & Instr(25 downto 0) & "00";
+
+if ((ReadData1_Reg >= 0) and BGEZ = '1') then
+	PCBGEZ <= '1';
 else
-	if PCSrc = '1' then	--if branch and branch is to be taken
+	PCBGEZ <= '0'; 
+end if ;
+
+if Jump = '1' then
+	if JR = '1' then
+		PC_in <= ReadData1_Reg;
+	else 
+		PC_in <= PCPlusFour(31 downto 28) & Instr(25 downto 0) & "00";
+	end if;	
+else
+	if (PCBGEZ='1' or PCSrc='1') then
 		PC_in <= PCPlusFour + (SignExtend_Out(29 downto 0) & "00");
 	else
 		PC_in <= PCPlusFour;
@@ -271,7 +312,6 @@ Addr_Instr <= PC_out;
 --/fetch--
 
 --decode--
-opcode <= Instr;
 ReadAddr1_Reg <= Instr(25 downto 21);
 ReadAddr2_Reg <= Instr(20 downto 16);
 SignExtend_In <= Instr(15 downto 0);
@@ -290,28 +330,63 @@ end if;
 --/execute--
 
 --mem--
-Addr_Data <= ALU_Out;
+Addr_Data <= Result1;
 Data_Out <= ReadData2_Reg;
 --/mem--
 
 --writeBack--
-if RegDst = '1' then
-	WriteAddr_Reg <= Instr(15 downto 11);
-else
-	WriteAddr_Reg <= Instr(20 downto 16);
-end if;
-
-if InstrtoReg = '1' then
-	WriteData_Reg <= Instr(15 downto 0) & x"0000";
-else
-	if MemtoReg = '1' then
-		WriteData_Reg <= Data_In;
+--address--
+if (LINK_DEST = '1') then 
+	WriteAddr_Reg  <= "11111";
+else 	
+	if RegDst = '1' then
+		WriteAddr_Reg <= Instr(15 downto 11);
 	else
-		WriteData_Reg <= ALU_Out;
+		WriteAddr_Reg <= Instr(20 downto 16);
+	end if;
+end if;	
+--/address--
+
+--data--
+if (LINK_DEST = '1') then
+	WriteData_Reg <= PCPlusFour;
+else
+	if (HI_Read = '1') then
+		WriteData_Reg <= HIGH;
+	else
+		if (LO_Read = '1') then
+		WriteData_Reg <= LOW;
+		else
+			if InstrtoReg = '1' then
+				WriteData_Reg <= Instr(15 downto 0) & x"0000";
+			else
+				if MemtoReg = '1' then
+					WriteData_Reg <= Data_In;
+				else
+					WriteData_Reg <= Result1;
+				end if;
+			end if;
+		end if;
 	end if;
 end if;
+--/data--
+
 --/writeBack--
 
+end process;
+
+mfhi : process(Clk)
+begin
+if (clk'event and clk='1') then
+
+	if(HL_Write = '1') then
+		LOW <= Result1;
+		HIGH <= Result2;
+	else
+		null;
+	end if;	
+
+end if;
 end process;
 
 end arch_MIPS;

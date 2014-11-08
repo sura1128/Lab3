@@ -38,8 +38,7 @@ entity ALU_WRAPPER is
 			  Result1		: out STD_LOGIC_VECTOR (31 downto 0);
 			  Result2		: out STD_LOGIC_VECTOR (31 downto 0);
 			  Status		: out	STD_LOGIC_VECTOR (2 downto 0);
-			  ALU_zero		: out STD_LOGIC;
-			  ALU_greater	: out STD_LOGIC);
+			  ALU_zero		: out STD_LOGIC);
 			  
 			  
 end ALU_WRAPPER;
@@ -59,9 +58,7 @@ component ALU is
 			Result1		: out	STD_LOGIC_VECTOR (31 downto 0);
 			Result2		: out	STD_LOGIC_VECTOR (31 downto 0);
 			Status		: out	STD_LOGIC_VECTOR (2 downto 0);
-			ALU_Control	: in  STD_LOGIC_VECTOR (5 downto 0);
-			ALU_zero		: out STD_LOGIC;
-			ALU_greater	: out STD_LOGIC);
+			ALU_Control	: in  STD_LOGIC_VECTOR (5 downto 0));
 end component;
 
 
@@ -69,7 +66,7 @@ end component;
 -- ALU Signals
 ----------------------------------------------------------------
 	signal	ALU_Control	:  STD_LOGIC_VECTOR (5 downto 0);		
-
+	signal ALU_STATUS : STD_LOGIC_VECTOR(2 DOWNTO 0);
 begin
 
 ----------------------------------------------------------------
@@ -82,24 +79,24 @@ ALU1 				: ALU port map
 						Operand2 	=> ALU_InB, 
 						Result1     => Result1,
 						Result2     => Result2,
-						Status      => Status,
-						ALU_zero  	=> ALU_zero,
-						ALU_Control => ALU_Control,
-						ALU_greater => ALU_greater
+						Status      => ALU_STATUS,
+						ALU_Control => ALU_Control
 						);
 					
 
-process(RST, control_in)
+process(RST, control_in, ALU_STATUS)
 begin
 
 ALU_Control(5) <= RST;
+Status<=ALU_STATUS;
+ALU_zero<=ALU_STATUS(0);
 
 case control_in(7 downto 6) is
 	when "00" =>
 		ALU_Control(4 downto 0) <= "10000"; --lw,sw,addi do add
 	
 	when "01" =>
-		ALU_Control(4 downto 0) <= "10001"; --beq,bgez,bgezal  do sub
+		ALU_Control(4 downto 0) <= "10001"; --beq  do sub
 	
 	when "10" =>
 		if(control_in(5 downto 0) = "100000") then --add
@@ -159,8 +156,8 @@ case control_in(7 downto 6) is
 			
 		end if;			
 	
-	when "11" =>
-		ALU_Control(4 downto 0) <= "10111";  --ori
+	when "11" => --ori
+		ALU_Control(4 downto 0) <= "10100";  --do or
 	when others =>
 		null;
 	

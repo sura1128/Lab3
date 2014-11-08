@@ -23,6 +23,7 @@ entity PC is
 	Port(	PC_in 	: in STD_LOGIC_VECTOR (31 downto 0);
 			PC_out 	: out STD_LOGIC_VECTOR (31 downto 0) := x"00400000";
 			RESET		: in STD_LOGIC;
+			PC_Enable : in STD_LOGIC;
 			CLK		: in STD_LOGIC);
 end PC;
 
@@ -39,7 +40,9 @@ if (CLK'event and CLK='1') then
 	if RESET = '1' then
 		PC_out <= x"00400000";
 	else
+		if (PC_Enable = '1') then
 		PC_out <= PC_in;
+		end if;
 	end if;
 end if;
 end process;

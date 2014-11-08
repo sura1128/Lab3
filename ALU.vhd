@@ -28,9 +28,7 @@ entity ALU is
 			Result1		: out	STD_LOGIC_VECTOR (31 downto 0);
 			Result2		: out	STD_LOGIC_VECTOR (31 downto 0);
 			Status		: out	STD_LOGIC_VECTOR (2 downto 0);
-			ALU_Control	: in  STD_LOGIC_VECTOR (5 downto 0);
-			ALU_zero		: out STD_LOGIC;
-			ALU_greater	: out STD_LOGIC);
+			ALU_Control	: in  STD_LOGIC_VECTOR (5 downto 0));
 end ALU;
 
 
@@ -142,9 +140,6 @@ signal EnableD : STD_LOGIC;
 signal QuotientD : STD_LOGIC_VECTOR (32-1 downto 0) := (others => '0'); 
 signal RemainderD	: STD_LOGIC_VECTOR (32-1 downto 0) := (others => '0');
 
-
-
-
 ----------------------------------------------------------------------------
 -- SL_LOGI instantiation
 ----------------------------------------------------------------------------
@@ -182,8 +177,6 @@ end component SR_ARITH;
 signal Control_SRA : STD_LOGIC:= '0';
 signal Output_SRA		: STD_LOGIC_VECTOR (32-1 downto 0) := (others => '0');
 
-
-
 ----------------------------------------------------------------------------
 -- SR_LOGI instantiation
 ----------------------------------------------------------------------------
@@ -208,7 +201,6 @@ signal Output_SRL		: STD_LOGIC_VECTOR (32-1 downto 0) := (others => '0');
 signal Result1_multi		: STD_LOGIC_VECTOR (32-1 downto 0) := (others => '0'); 
 signal Result2_multi		: STD_LOGIC_VECTOR (32-1 downto 0) := (others => '0');
 signal done		 			: STD_LOGIC := '0';
-
 
 begin
 
