@@ -106,7 +106,7 @@ when "00" =>
 		RegDst <= '1';
 		
 	elsif opcode(3 downto 0) = "1000" then --ADDI
-		ALUOp <= "01";
+		ALUOp <= "00";
 		Branch <= '0';
 		Jump <= '0';
 		MemRead <= '0';

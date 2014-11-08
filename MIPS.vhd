@@ -49,15 +49,18 @@ component PC is
 end component;
 
 ----------------------------------------------------------------
--- ALU
+-- ALU_WRAPPER
 ----------------------------------------------------------------
-component ALU is
-    Port ( 	
-			ALU_InA 		: in  STD_LOGIC_VECTOR (31 downto 0);				
-			ALU_InB 		: in  STD_LOGIC_VECTOR (31 downto 0);
-			ALU_Out 		: out STD_LOGIC_VECTOR (31 downto 0);
-			ALU_Control	: in  STD_LOGIC_VECTOR (7 downto 0);
-			ALU_zero		: out STD_LOGIC);
+component ALU_WRAPPER is
+     Port ( RST : in  STD_LOGIC;
+			  ALU_InA 		: in  STD_LOGIC_VECTOR (31 downto 0);				
+			  ALU_InB 		: in  STD_LOGIC_VECTOR (31 downto 0);
+           Control_In : in  STD_LOGIC_VECTOR (7 downto 0);
+			  Result1		: out STD_LOGIC_VECTOR (31 downto 0);
+			  Result2		: out STD_LOGIC_VECTOR (31 downto 0);
+			  Status		: out	STD_LOGIC_VECTOR (2 downto 0);
+			  ALU_zero		: out STD_LOGIC;
+			  ALU_greater	: out STD_LOGIC);
 end component;
 
 ----------------------------------------------------------------
@@ -110,13 +113,18 @@ end component;
 	signal	PC_out 		:  STD_LOGIC_VECTOR (31 downto 0);
 
 ----------------------------------------------------------------
--- ALU Signals
+-- ALU_WRAPPER Signals
 ----------------------------------------------------------------
+
+
+	signal	  Result1		:  STD_LOGIC_VECTOR (31 downto 0);
+	signal	  Result2		:  STD_LOGIC_VECTOR (31 downto 0);
+	signal	  Status		: 	STD_LOGIC_VECTOR (2 downto 0);
 	signal	ALU_InA 		:  STD_LOGIC_VECTOR (31 downto 0);
 	signal	ALU_InB 		:  STD_LOGIC_VECTOR (31 downto 0);
-	signal	ALU_Out 		:  STD_LOGIC_VECTOR (31 downto 0);
 	signal	ALU_Control	:  STD_LOGIC_VECTOR (7 downto 0);
-	signal	ALU_zero		:  STD_LOGIC;			
+	signal	ALU_zero		:  STD_LOGIC;		
+	signal	  ALU_greater	:  STD_LOGIC;	
 
 ----------------------------------------------------------------
 -- Control Unit Signals
@@ -177,15 +185,19 @@ PC1				: PC port map
 						);
 						
 ----------------------------------------------------------------
--- ALU port map
+-- ALU_WRAPPER port map
 ----------------------------------------------------------------
-ALU1 				: ALU port map
+ALU_WRAPPER1 				: ALU_WRAPPER port map
 						(
+						RST => RESET,	
 						ALU_InA 		=> ALU_InA, 
 						ALU_InB 		=> ALU_InB, 
-						ALU_Out 		=> ALU_Out, 
-						ALU_Control => ALU_Control, 
-						ALU_zero  	=> ALU_zero
+						Result1 		=> Result1,
+						Result2 		=> Result2,						
+						Control_In  => ALU_Control, 
+						ALU_zero  	=> ALU_zero,
+						Status		=> Status,
+						ALU_greater	=> ALU_greater
 						);
 						
 ----------------------------------------------------------------
