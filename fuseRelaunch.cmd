@@ -1,1 +1,1 @@
--intstyle "ise" -incremental -lib "secureip" -o "C:/CG3207/Lab3/Top_Test_isim_beh.exe" -prj "C:/CG3207/Lab3/Top_Test_beh.prj" "work.Top_Test" 
+-intstyle "ise" -incremental -lib "secureip" -o "C:/CG3207/Lab3/BOOTH_MULT_TEST_isim_beh.exe" -prj "C:/CG3207/Lab3/BOOTH_MULT_TEST_beh.prj" "BOOTH_MULT_TEST" 

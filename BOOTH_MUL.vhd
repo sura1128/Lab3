@@ -83,6 +83,7 @@ if(clk'event and clk = '1') then
 	else
 		P(width downto 1) := Operand2;
 		P(width*2 downto width+1) := (others => '0');
+		P(0) := '0';
 		temp := (others => '0');
 	end if;
 	

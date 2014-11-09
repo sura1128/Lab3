@@ -1,21 +1,12 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <report-views version="2.0" >
  <header>
-<<<<<<< HEAD
-  <DateModified>2014-11-09T15:46:37</DateModified>
-  <ModuleName>TOP</ModuleName>
-  <SummaryTimeStamp>2014-11-08T18:50:48</SummaryTimeStamp>
+  <DateModified>2014-11-09T16:12:04</DateModified>
+  <ModuleName>BOOTH_MULT</ModuleName>
+  <SummaryTimeStamp>2014-11-09T16:09:06</SummaryTimeStamp>
   <SavedFilePath>C:/CG3207/Lab3/iseconfig/TOP.xreport</SavedFilePath>
   <ImplementationReportsDirectory>C:/CG3207/Lab3\</ImplementationReportsDirectory>
-  <DateInitialized>2014-11-08T18:37:59</DateInitialized>
-=======
-  <DateModified>2014-11-09T15:03:47</DateModified>
-  <ModuleName>BOOTH_MULT</ModuleName>
-  <SummaryTimeStamp>2014-11-09T15:00:35</SummaryTimeStamp>
-  <SavedFilePath>F:/Documents/School/NUS/Lab3/iseconfig/TOP.xreport</SavedFilePath>
-  <ImplementationReportsDirectory>F:/Documents/School/NUS/Lab3\</ImplementationReportsDirectory>
-  <DateInitialized>2014-11-09T15:03:47</DateInitialized>
->>>>>>> origin/master
+  <DateInitialized>2014-11-09T16:08:49</DateInitialized>
   <EnableMessageFiltering>false</EnableMessageFiltering>
  </header>
  <body>

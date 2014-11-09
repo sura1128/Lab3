@@ -99,8 +99,8 @@ BEGIN
 --		
 		
 		wait for 100 ns;
-		Operand1 <= x"FFFFFFFF";
-		Operand2 <= x"FFFFFFFF";
+		Operand1 <= x"00000006";
+		Operand2 <= x"00000006";
 		
       wait for 100 ns;		
 		EnableB <= '1';
@@ -108,10 +108,10 @@ BEGIN
 		wait for 3500 ns;	
 		EnableB <= '0';
 		
-      wait for 00 ns;	
-		Operand1 <= x"FFFFFFFF";
-		Operand2 <= x"0FFFFFFF";
-		
+--      wait for 00 ns;	
+--		Operand1 <= x"FFFFFFFF";
+--		Operand2 <= x"0FFFFFFF";
+--		
 --		Operand2 <= not("00000000000000000000000000001001") + 1;
 --      Operand1 <= "00000000000000000000000000000101";
 --		
