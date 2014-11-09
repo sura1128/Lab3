@@ -1,0 +1,1 @@
+xst -intstyle ise -ifn "F:/Documents/School/NUS/Lab3/ALU_WRAPPER.xst" -ofn "F:/Documents/School/NUS/Lab3/ALU_WRAPPER.syr" 
