@@ -1,8 +1,8 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <report-views version="2.0" >
  <header>
-  <DateModified>2014-11-08T18:53:12</DateModified>
-  <ModuleName>ALU_WRAPPER</ModuleName>
+  <DateModified>2014-11-09T15:46:37</DateModified>
+  <ModuleName>TOP</ModuleName>
   <SummaryTimeStamp>2014-11-08T18:50:48</SummaryTimeStamp>
   <SavedFilePath>C:/CG3207/Lab3/iseconfig/TOP.xreport</SavedFilePath>
   <ImplementationReportsDirectory>C:/CG3207/Lab3\</ImplementationReportsDirectory>
