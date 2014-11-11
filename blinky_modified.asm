@@ -8,24 +8,24 @@ lui $t2, 0x0000
 ori $t2, 0x0004 # delay counter (n). Change according to the clock
 
 ori $t5, 0x0004 # register to demonstrate AND
+ori $t3, 0x0007
 and $t2, $t2, $t5 # $2 value should stay the same after this line
 or $t2, $t2, $t1  # $2 should be 0x0005 after this line
 add $t2, $t2, $t1 # $2 should be 0x0006 after this line
-addi $t2, $t2, 1
-multu $t2, $t2
-mflo $t2
-sub $t2, $t2, $t1
 
-sllv $t1, $t1, $t1
-srav $t1, $t1, $t1
-sll $t1, $t1, 3
+#instr for 3B
+addi $t2, $t2, 1 # $2 should be 0x0007 after this line
+srl $t2, $t2, 1 # 7 will become 3 after this line
+sra $t2, $t2, 1 # 3 will become 1 after this line
+sllv $t2, $t2, $t1 # 1 will become 2 after this line
+sll $t2, $t2, 1 #2 will become 4 after this line
 
-
-
-div $t2, $t1
-mfhi $t2
-
-
+multu $t2, $t2 # HI register will become 0x0010
+mflo $t2 # 0x0010 will be shifted back to $t2
+sub $t2, $t2, $t1 #$t2 will become 0009
+div $t2, $t5 #hi:3  lo:3
+mfhi $t2 #$t2 will become 3
+xor $t2, $t2, $t3 # $t2 will become 4 
 
 
 
@@ -38,6 +38,6 @@ slt $t3, $t2, $t1
 beq $t3, $zero, delay
 sw  $t4, 0($t0)
 nor $t4, $t4, $zero
-j loop
+jal loop
  #n*3 (delay instructions) + 5 (non-delay instructions)
  

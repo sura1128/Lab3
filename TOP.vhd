@@ -114,6 +114,17 @@ constant INSTR_MEM : MEM_256x32 := (
 --			x"014d5024", --
 --			x"01495025", --
 --			x"01495020", --
+----			x"214a0001",
+----			x"014a0019",
+----			x"00005012",
+----			x"01495022",
+----			x"01294804",
+----			x"01294807",
+----			x"000948c0",
+----			x"0149001a",
+----			x"00005010",
+--			
+--		
 --			
 --			x"01495022", -- delay: 	sub $t2, $t2, $t1 
 --			x"0149582a", -- 			slt $t3, $t2, $t1
@@ -121,25 +132,55 @@ constant INSTR_MEM : MEM_256x32 := (
 --			x"ad0c0000", -- 			sw  $t4, 0($t0)	
 --			x"01806027", --			nor $t4, $t4, $zero
 --			x"08100005", -- 			j loop # infinite loop; n*3 (delay instructions) + 5 (non-delay instructions).
+--			
+--			
+--			
+--			
+			--for bgezal
+			x"35290003", --ori $t1, 0x0003
+			x"20010001", --sub $t1,$t1,1 
+			x"01214822",
+			x"0531fffd", --bgezal $t1, loop
+
+
+		
+		
 			
-			x"3c090000", -- start : lui $t1, 0x0000
-			x"35290001", -- 			ori $t1, 0x0001 # constant 1
-			x"3c081002", -- 			lui $t0, 0x1002 # DIP address before offset
-			x"35088001", --			ori $t0, 0x8001
-			x"8d0c7fff", --			lw  $t4, 0x7fff($t0) # DIP address 0x10030000 = 0x10028001 + 0x7fff
-			x"3c081002", --			lui $t0, 0x1002 # LED address before offset
-			x"35080001", --			ori $t0, 0x0001
-			x"3c0a0000", -- loop: 	lui $t2, 0x0000
-			x"354a0004", -- 			ori $t2, 0x0004 # delay counter (n) if using slow clock
-			-- x"3c0a00ff",-- 			#lui $t2, 0x00ff			
-			-- x"354affff",-- 			#ori $t2, 0xffff # delay counter (n) if using fast clock
-			x"01495022", -- delay: 	sub $t2, $t2, $t1 
-			x"0149582a", -- 			slt $t3, $t2, $t1
-			x"1160fffd", -- 			beq $t3, $zero, delay
-			x"ad0cffff", -- 			sw  $t4, 0xffffffff($t0)	# LED address 0x10020000 = 0x10020001 + 0xffffffff.
-			x"01806027", --			nor $t4, $t4, $zero
-			x"08100007", -- 			j loop # infinite loop; n*3 (delay instructions) + 5 (non-delay instructions).
 			
+			--for jal and jr
+--			x"35290001", --constant 1
+--			x"0c100003", --jal back
+--			x"21290001", --addi $t1, $t1, 1
+--			x"03e00008", --jr $31
+--			
+			
+			
+			
+			
+--			
+--			x"3c090000", -- start : lui $t1, 0x0000
+--			x"35290001", -- 			ori $t1, 0x0001 # constant 1
+--			x"3c081002", -- 			lui $t0, 0x1002 # DIP address before offset
+--			x"35088001", --			ori $t0, 0x8001
+--			x"8d0c7fff", --			lw  $t4, 0x7fff($t0) # DIP address 0x10030000 = 0x10028001 + 0x7fff
+--			x"3c081002", --			lui $t0, 0x1002 # LED address before offset
+--			x"35080001", --			ori $t0, 0x0001
+--			x"3c0a0000", -- loop: 	lui $t2, 0x0000
+--			x"354a0004", -- 			ori $t2, 0x0004 # delay counter (n) if using slow clock
+--			-- x"3c0a00ff",-- 			#lui $t2, 0x00ff			
+--			-- x"354affff",-- 			#ori $t2, 0xffff # delay counter (n) if using fast clock
+--			
+--			
+--	
+--			
+--			x"01495022", -- delay: 	sub $t2, $t2, $t1 
+--			x"0149582a", -- 			slt $t3, $t2, $t1
+--			x"1160fffd", -- 			beq $t3, $zero, delay
+--			x"ad0cffff", -- 			sw  $t4, 0xffffffff($t0)	# LED address 0x10020000 = 0x10020001 + 0xffffffff.
+--			x"01806027", --			nor $t4, $t4, $zero
+--			x"08100007", -- 			j loop # infinite loop; n*3 (delay instructions) + 5 (non-delay instructions).
+			
+		
 			others=> x"00000000");
 
 -- The Blinky program reads the DIP switches in the begining. Let the value read be VAL

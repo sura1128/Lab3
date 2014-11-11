@@ -211,7 +211,6 @@ when "00" =>
 		MemWrite <= '0';
 		ALUSrc <= '0';
 		SignExtend <= '1';
-		RegWrite <= '0';
 		RegDst <= '0';
 		HI_READ <= '0';
 		HL_Write <= '0';
@@ -221,13 +220,16 @@ when "00" =>
 
 		if (instr(20 downto 16) = "00001") then 
 		BGEZ <= '1';
-		LINK_DEST <= '0';
+		LINK_DEST <= '0';		
+		RegWrite <= '0';
 		elsif (instr(20 downto 16) = "10001" ) then
 		BGEZ <= '1';
-		LINK_DEST <= '1';
+		LINK_DEST <= '1';		
+		RegWrite <= '1';
 		else 
 		BGEZ <= '0';
 		LINK_DEST <= '0';
+		RegWrite <= '0';
 		end if; 
 
 
