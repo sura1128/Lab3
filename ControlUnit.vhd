@@ -142,30 +142,36 @@ when "00" =>
 			jump <= '1'; 
 			RegWrite <= '0';
 			RegDst <= '0';
-			JR <= '1';
+			JR <= '1';			
+			HI_Read <= '0';
+			HL_Write <= '0';
+			LO_Read <= '0';
 		else 
 			jump <= '0';
-			RegWrite <= '1';
 			RegDst <= '1';
-			JR <= '0';	
-		end if;
+			JR <= '0';
 
-		if ((instr(5 downto 0) = "011000") or (instr(5 downto 0) = "011001") or (instr(5 downto 0) = "011010") or (instr(5 downto 0) = "011011")) then
-			HL_Write <= '1';
-			HI_Read <= '0';
-			LO_Read <= '0';
-		elsif (instr(5 downto 0) = "010000") then
-			HI_Read <= '1';
-			HL_Write <= '0';
-			LO_Read <= '0';
-		elsif (instr(5 downto 0) = "010010") then 
-			HI_Read <= '0';
-			HL_Write <= '0';
-			LO_Read <= '1';	
-		else
-			HI_Read <= '0';
-			HL_Write <= '0';
-			LO_Read <= '0';			
+			if ((instr(5 downto 0) = "011000") or (instr(5 downto 0) = "011001") or (instr(5 downto 0) = "011010") or (instr(5 downto 0) = "011011")) then
+				HL_Write <= '1';
+				HI_Read <= '0';
+				LO_Read <= '0';
+				RegWrite <= '0';
+			elsif (instr(5 downto 0) = "010000") then
+				HI_Read <= '1';
+				HL_Write <= '0';
+				LO_Read <= '0';
+				RegWrite <= '1';
+			elsif (instr(5 downto 0) = "010010") then 
+				HI_Read <= '0';
+				HL_Write <= '0';
+				LO_Read <= '1';
+				RegWrite <= '1';	
+			else
+				HI_Read <= '0';
+				HL_Write <= '0';
+				LO_Read <= '0';
+				RegWrite <= '1';				
+			end if;
 		end if;
 		
 		--shifts
