@@ -102,45 +102,53 @@ type MEM_256x32 is array (0 to 255) of std_logic_vector (31 downto 0); -- 256 wo
 -- Instruction Memory
 ----------------------------------------------------------------
 constant INSTR_MEM : MEM_256x32 := (
---			x"3c090000", -- start : lui $t1, 0x0000
---			x"35290001", -- 			ori $t1, 0x0001 # constant 1
---			x"3c081003", -- 			lui $t0, 0x1003 # DIP pointer, for VHDL
---			x"8d0c0000", --			lw  $t4, 0($t0) 
---			x"3c081002", --			lui $t0, 0x1002 # LED pointer, for VHDL
---			x"3c0a0000", -- loop: 	lui $t2, 0x0000
---			x"354a0004", -- 			ori $t2, 0x0004 # delay counter (n). Change according to the clock
---			
---			x"35ad0004", --
---			x"014d5024", --
---			x"01495025", --
---			x"01495020", --
-----			x"214a0001",
-----			x"014a0019",
-----			x"00005012",
-----			x"01495022",
-----			x"01294804",
-----			x"01294807",
-----			x"000948c0",
-----			x"0149001a",
-----			x"00005010",
---			
---		
---			
---			x"01495022", -- delay: 	sub $t2, $t2, $t1 
---			x"0149582a", -- 			slt $t3, $t2, $t1
---			x"1160fffd", -- 			beq $t3, $zero, delay
---			x"ad0c0000", -- 			sw  $t4, 0($t0)	
---			x"01806027", --			nor $t4, $t4, $zero
---			x"08100005", -- 			j loop # infinite loop; n*3 (delay instructions) + 5 (non-delay instructions).
---			
---			
---			
---			
+			--x"3c090000", -- start : lui $t1, 0x0000
+			x"35290001", -- 			ori $t1, 0x0001 # constant 1
+			x"3c081003", -- 			lui $t0, 0x1003 # DIP pointer, for VHDL
+			x"8d0c0000", --			lw  $t4, 0($t0) 
+			x"3c081002", --			lui $t0, 0x1002 # LED pointer, for VHDL
+			x"3c0a0000", -- loop: 	lui $t2, 0x0000
+			x"354a0004", -- 			ori $t2, 0x0004 # delay counter (n). Change according to the clock	
+			x"35ad0004", -- ori $13,$13,0x0004
+			x"356b0007", --
+			x"014d5024", --
+			x"01495025", --
+			x"01495020", --
+			x"214a0001",
+			x"000a5842", -- srl
+			x"000a5043",
+			x"012a5004",
+			x"000a5040",	
+			x"014a0019",
+			x"00005012",
+			x"01495022",		
+			x"014d001a",
+			x"00005010",
+			x"014b5026",		
+		
+			
+			x"01495022", -- delay: 	sub $t2, $t2, $t1 
+			x"0149582a", -- 			slt $t3, $t2, $t1
+			x"1160fffd", -- 			beq $t3, $zero, delay
+			x"ad0c0000", -- 			sw  $t4, 0($t0)	
+			x"01806027", --			nor $t4, $t4, $zero
+			x"08100004", -- 			j loop # infinite loop; n*3 (delay instructions) + 5 (non-delay instructions).
+
+
+
+		
 			--for bgezal
-			x"35290003", --ori $t1, 0x0003
-			x"20010001", --sub $t1,$t1,1 
-			x"01214822",
-			x"0531fffd", --bgezal $t1, loop
+--			x"35290003", --ori $t1, 0x0003
+--			x"20010001", --sub $t1,$t1,1 
+--			x"01214822",
+--			x"0531fffd", --bgezal $t1, loop
+--			
+			
+			--for bgez
+--			x"35290003" --ori $t1,0x0003
+--			x"20010001" --sub $t1,$t1,1
+--			x"01214822"
+--			x"0521fffd" --bgez $t1, loop
 
 
 		

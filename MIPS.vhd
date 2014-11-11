@@ -86,7 +86,9 @@ component ControlUnit is
 			HL_write    : out STD_LOGIC;
 			JR          : out STD_LOGIC;
 			LINK_DEST   : out STD_LOGIC;
-			BGEZ : out STD_LOGIC);   
+			BGEZ : out STD_LOGIC;
+			Shift : out STD_LOGIC;			
+			SLLV: out STD_LOGIC);   
 end component;
 
 ----------------------------------------------------------------
@@ -150,7 +152,9 @@ end component;
 	signal   LO_Read     :  STD_LOGIC;
 	signal   JR     :  STD_LOGIC;
 	signal   LINK_DEST   : STD_LOGIC;
-	signal   BGEZ   : STD_LOGIC;
+	signal   BGEZ   		: STD_LOGIC;
+	signal 	Shift			: STD_LOGIC;
+	signal SLLV:  STD_LOGIC;
 
 ----------------------------------------------------------------
 -- Register File Signals
@@ -238,9 +242,11 @@ ControlUnit1 	: ControlUnit port map
 						HI_Read     => HI_Read,
 						LO_Read     => LO_Read,
 						HL_Write    => HL_Write,
-						JR => JR,
-						LINK_DEST => LINK_DEST,
-						BGEZ => BGEZ
+						JR 			=> JR,
+						LINK_DEST 	=> LINK_DEST,
+						BGEZ 			=> BGEZ,
+						Shift			=> Shift,
+						SLLV			=>SLLV
 						);
 						
 ----------------------------------------------------------------
@@ -320,12 +326,23 @@ SignExtend_In <= Instr(15 downto 0);
 --execute--
 ALU_Control(7 downto 6) <= ALUOp(1 downto 0);
 ALU_Control(5 downto 0) <= Instr(5 downto 0);
-ALU_InA <= ReadData1_Reg;
-
-if ALUSrc = '1' then
-	ALU_InB <= SignExtend_Out;
+if (Shift = '1' or SLLV = '1') then
+	ALU_InA <= ReadData2_Reg;
 else
-	ALU_InB <= ReadData2_Reg;
+	ALU_InA <= ReadData1_Reg;
+end if;
+if (Shift = '1') then
+	ALU_InB <= "000000000000000000000000000" & Instr(10 downto 6);
+else
+	if (SLLV = '1') then
+		ALU_InB <= ReadData1_Reg;
+	else
+		if ALUSrc = '1' then
+			ALU_InB <= SignExtend_Out;
+		else
+			ALU_InB <= ReadData2_Reg;
+		end if;
+	end if;
 end if;
 --/execute--
 

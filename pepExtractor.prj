@@ -1,1 +1,8 @@
 work	"ALU.vhd"
+work	"BOOTH_MUL.vhd"
+work	"DIV.vhd"
+work	"DIVU.vhd"
+work	"MULTU.vhd"
+work	"SL_LOGI.vhd"
+work	"SR_ARITH.vhd"
+work	"SR_LOGI.vhd"

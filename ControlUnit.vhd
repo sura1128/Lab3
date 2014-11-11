@@ -38,7 +38,9 @@ entity ControlUnit is
 				HL_write    : out STD_LOGIC;
 				JR    : out STD_LOGIC;
 				LINK_DEST   : out STD_LOGIC;
-				BGEZ : out STD_LOGIC); 
+				BGEZ : out STD_LOGIC;				
+				Shift			: out	 STD_LOGIC;
+				SLLV			: out std_logic); 
 end ControlUnit;
 
 
@@ -71,7 +73,9 @@ when "10" => -- I-type
 	HL_Write <= '0';
 	JR <= '0';
 	LINK_DEST <= '0';
-	BGEZ <= '0';		
+	BGEZ <= '0';
+	Shift<='0';
+	SLLV<='0';
 
 	
 	elsif instr(29 downto 26) = "1011" then --sw
@@ -92,7 +96,10 @@ when "10" => -- I-type
 	HL_Write <= '0';
 	JR <= '0';		
 	LINK_DEST <= '0';
-	BGEZ <= '0';		
+	BGEZ <= '0';
+	Shift<='0';
+	SLLV<='0';		
+	
 	
 	else
 		ALUOp <= "00";
@@ -111,7 +118,9 @@ when "10" => -- I-type
 		HL_Write <= '0';
 		JR <= '0';	
 		LINK_DEST <= '0';
-		BGEZ <= '0';			
+		BGEZ <= '0';
+		Shift<='0';
+	SLLV<='0';				
 
 	end if;
 	
@@ -157,7 +166,20 @@ when "00" =>
 			HI_Read <= '0';
 			HL_Write <= '0';
 			LO_Read <= '0';			
-		end if;	
+		end if;
+		
+		--shifts
+		if ((instr(5 downto 0) = "000000") or (instr(5 downto 0) = "000010") or (instr(5 downto 0) = "000011")) then
+			Shift <= '1';
+		else
+			Shift <= '0';
+		end if;
+		
+		if (instr(5 downto 0) = "000100") then
+			SLLV<='1';	
+		else		
+			SLLV<='0';
+		end if;
 		
 	elsif instr(29 downto 26) = "1000" then --ADDI
 		ALUOp <= "00";
@@ -176,7 +198,9 @@ when "00" =>
 		LO_Read <= '0';
 		JR <= '0';
 		LINK_DEST <= '0';	
-		BGEZ <= '0';	
+		BGEZ <= '0';
+		Shift <= '0';
+		SLLV<='0';		
 	
 	elsif instr(29 downto 26) = "0100" then --BEQ
 		--<output>
@@ -196,10 +220,11 @@ when "00" =>
 		LO_Read <= '0';
 		JR <= '0';	
 		LINK_DEST <= '0';	
-		BGEZ <= '0';			
+		BGEZ <= '0';
+		Shift <= '0';
+		SLLV<='0';			
 	
 	elsif instr(29 downto 26) = "0001" then --BGEZ, BGEZAL
-
 		
 		--<output>
 		ALUOp <= "01";
@@ -215,8 +240,9 @@ when "00" =>
 		HI_READ <= '0';
 		HL_Write <= '0';
 		LO_Read <= '0';
-		JR <= '0';	
-		
+		JR <= '0';		
+		Shift <= '0';
+		SLLV<='0';
 
 		if (instr(20 downto 16) = "00001") then 
 		BGEZ <= '1';
@@ -251,7 +277,9 @@ when "00" =>
 		LO_Read <= '0';
 		JR <= '0';	
 		LINK_DEST <= '0';
-		BGEZ <= '0';				
+		BGEZ <= '0';
+		Shift <= '0';
+		SLLV<='0';				
 
 		
 	elsif instr(29 downto 26) = "0011" then --LINK_DEST
@@ -273,6 +301,8 @@ when "00" =>
 		JR <= '0';
 		LINK_DEST <= '1';
 		BGEZ <= '0';
+		Shift <= '0';
+		SLLV<='0';
 	
 	elsif instr(29 downto 26) = "1101" then --ori
 		ALUOp <= "11";
@@ -291,7 +321,9 @@ when "00" =>
 		LO_Read <= '0';	
 		JR <= '0';
 		LINK_DEST <= '0';	
-		BGEZ <= '0';		
+		BGEZ <= '0';
+		Shift <= '0';
+		SLLV<='0';		
 
 		
 	elsif instr(29 downto 26) = "1111" then --lui
@@ -311,7 +343,9 @@ when "00" =>
 		LO_Read <= '0';		
 		JR <= '0';
 		LINK_DEST <= '0';
-		BGEZ <= '0';			
+		BGEZ <= '0';
+		Shift <= '0';
+		SLLV<='0';			
 
 		
 	else
@@ -331,7 +365,9 @@ when "00" =>
 		LO_Read <= '0';
 		JR <= '0';
 		LINK_DEST <= '0';
-		BGEZ <= '0';				
+		BGEZ <= '0';
+		Shift <= '0';
+		SLLV<='0';				
 
 	end if;
  	
@@ -352,7 +388,9 @@ when others =>
 		LO_Read <= '0';
 		JR <= '0';
 		LINK_DEST <= '0';	
-		BGEZ <= '0';	
+		BGEZ <= '0';
+		Shift <= '0';
+		SLLV<='0';	
 
 
 end case;

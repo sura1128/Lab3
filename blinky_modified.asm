@@ -15,7 +15,7 @@ add $t2, $t2, $t1 # $2 should be 0x0006 after this line
 
 #instr for 3B
 addi $t2, $t2, 1 # $2 should be 0x0007 after this line
-srl $t2, $t2, 1 # 7 will become 3 after this line
+srl $t3, $t2, 1 # 7 will become 3 after this line
 sra $t2, $t2, 1 # 3 will become 1 after this line
 sllv $t2, $t2, $t1 # 1 will become 2 after this line
 sll $t2, $t2, 1 #2 will become 4 after this line
@@ -27,17 +27,12 @@ div $t2, $t5 #hi:3  lo:3
 mfhi $t2 #$t2 will become 3
 xor $t2, $t2, $t3 # $t2 will become 4 
 
-
-
-
-
-
 delay:
 sub $t2, $t2, $t1
 slt $t3, $t2, $t1
 beq $t3, $zero, delay
 sw  $t4, 0($t0)
 nor $t4, $t4, $zero
-jal loop
+j loop
  #n*3 (delay instructions) + 5 (non-delay instructions)
  
