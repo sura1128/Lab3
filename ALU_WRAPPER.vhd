@@ -142,7 +142,7 @@ case control_in(7 downto 6) is
 			ALU_Control(4 downto 0) <= "00100";  --sra	
 
 		elsif (control_in(5 downto 0) = "000100") then 
-			ALU_Control(4 downto 0) <= "00101";  --sllv
+			ALU_Control(4 downto 0) <= "00010";  --sllv --same as sll
 			
 			------extra-----
 		elsif (control_in(5 downto 0) = "011010") then 

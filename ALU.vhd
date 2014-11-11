@@ -355,7 +355,6 @@ case state is
 				| "00010" --sll
 				| "00011" --srl
 				| "00100" --sra
-				| "00101" --sllv
 				| "00110" --div
 				| "00111" => --divu
 			n_state <= MULTI_CYCLE;

@@ -15,14 +15,14 @@ add $t2, $t2, $t1 # $2 should be 0x0006 after this line
 
 #instr for 3B
 addi $t2, $t2, 1 # $2 should be 0x0007 after this line
-srl $t3, $t2, 1 # 7 will become 3 after this line
-sra $t2, $t2, 1 # 3 will become 1 after this line
-sllv $t2, $t2, $t1 # 1 will become 2 after this line
-sll $t2, $t2, 1 #2 will become 4 after this line
+srl $t4, $t2, 1 # 7 will become 3 after this line
+sra $t2, $t4, 1 # 3 will become 1 after this line
+sllv $t4, $t2, $t1 # 1 will become 2 after this line
+sll $t2, $t4, 1 #2 will become 4 after this line
 
 multu $t2, $t2 # HI register will become 0x0010
 mflo $t2 # 0x0010 will be shifted back to $t2
-sub $t2, $t2, $t1 #$t2 will become 0009
+sub $t2, $t2, $t1 #$t2 will become 000f
 div $t2, $t5 #hi:3  lo:3
 mfhi $t2 #$t2 will become 3
 xor $t2, $t2, $t3 # $t2 will become 4 
