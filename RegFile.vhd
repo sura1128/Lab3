@@ -50,7 +50,9 @@ process (CLK)
 begin
 if (CLK'event and CLK='1') then
 	if (RegWrite = '1') then
-		REG_FILE(conv_integer(WriteAddr_Reg)) <= WriteData_Reg;
+		if (WriteAddr_Reg /= "00000") then
+			REG_FILE(conv_integer(WriteAddr_Reg)) <= WriteData_Reg;
+		end if;
 	end if;
 end if;
 end process;

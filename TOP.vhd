@@ -116,20 +116,20 @@ constant INSTR_MEM : MEM_256x32 := (
 			x"01495020", --
 			x"214a0001",
 			x"000a6042", -- srl
-			x"000c5043",
-			x"012a6004",
-			x"000c5040",	
-			x"014a0019",
-			x"00005012",
-			x"01495022",		
-			x"014d001a",
-			x"00005010",
-			x"014b5026",		
+			x"000c5043", -- sra
+			x"012a6004", -- sllv
+			x"000c5040", -- sll
+			x"018a0018", -- mult
+			x"00005012", -- mflo
+			x"01495022", --sub	
+			x"014d001a", --div
+			x"00005010", --mfhi
+			x"014b5026", --xor
 		
 			
 			x"01495022", -- delay: 	sub $t2, $t2, $t1 
-			x"0149582a", -- 			slt $t3, $t2, $t1
-			x"1160fffd", -- 			beq $t3, $zero, delay
+			x"0149702a", -- 			slt $t3, $t2, $t1
+			x"11c0fffd", -- 			beq $t3, $zero, delay
 			x"ad0c0000", -- 			sw  $t4, 0($t0)	
 			x"01806027", --			nor $t4, $t4, $zero
 			x"08100004", -- 			j loop # infinite loop; n*3 (delay instructions) + 5 (non-delay instructions).
